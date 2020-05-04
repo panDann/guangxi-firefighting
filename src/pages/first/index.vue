@@ -52,8 +52,9 @@
 </template>
  
 <script>
-import echarts from 'echarts'
+import {line,} from 'echarts'
 import mpvueEcharts from 'mpvue-echarts'
+const echarts = line
 function initChart (canvas, width, height) {
   const chart = echarts.init(canvas, null, {
     width: width,

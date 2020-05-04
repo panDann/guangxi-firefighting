@@ -12,19 +12,6 @@
                     </a>
                 </p>
             </li>
-  <!-- <li class="work-list-li">
-      <div  class="work-list-img">
-          <img :src="item.imgUrl">
-      </div>
-      <div class="work-list-right">
-          <p class="work-list-title">{{item.name}}</p>
-          <p class="work-list-time">{{item.summary?item.summary:item.time}}</p>
-          <p class="work-list-info">
-              <span><i class="icon-address" v-show="item.address"></i>{{item.address? item.address:item.time}}</span>
-              <a href="javascript:;" class="work-list-state work-list-processed">{{item.status}}<i class="icon-arrow"></i></a>
-          </p>
-      </div>
-  </li> -->
 </template>
 
 <script>

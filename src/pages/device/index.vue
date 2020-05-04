@@ -27,10 +27,15 @@
 <script>
 
 import Card from '@/pages/device/components/card.vue'
+import mpvue from 'mpvue'
+
 export default {
   
   components: {
     Card
+  },
+  mounted() {
+    console.log(mpvue)
   },
   data () {
     return {
