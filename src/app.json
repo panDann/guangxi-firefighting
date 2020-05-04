@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/mine/main",
     "pages/device/main",
     "pages/inspection/main",
     "pages/device/detail/main",
     "pages/inspection/detail/main",
+    "pages/mine/main",
     "pages/first/main",
     "pages/work-order/main",
     "pages/mine/modify/main",

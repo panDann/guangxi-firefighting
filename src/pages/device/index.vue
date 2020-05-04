@@ -16,58 +16,44 @@
     </div>
     <div class="equipment-list-box">
         <ul class="equipment-list-ul">
-            <li class="equipment-list-li">
-                <p class="equipment-list-title">
-                    <i class="equipment-list-gaojin"></i>
-                    广州国际媒体港烟感1</p>
-                <p class="equipment-list-time">安装位置：<span>12楼A栋192室</span></p>
-                <p class="equipment-list-info">
-                    <span><span>IMEI：</span>8901930003921</span>
-                    <a  href="javascript:;" class="equipmentk-list-state">
-                        <i class="icon-arrow"></i>
-                    </a>
-                </p>
-            </li>
-            <li class="equipment-list-li">
-                <p class="equipment-list-title">
-                    <i class="equipment-list-zaixian"></i>
-                    广州国际媒体港烟感1</p>
-                <p class="equipment-list-time">安装位置：<span>12楼A栋192室</span></p>
-                <p class="equipment-list-info">
-                    <span><span>IMEI：</span>8901930003921</span>
-                    <a  href="javascript:;" class="equipmentk-list-state">
-                        <i class="icon-arrow"></i>
-                    </a>
-                </p>
-            </li>
-            <li class="equipment-list-li">
-                <p class="equipment-list-title">
-                    <i class="equipment-list-lixian"></i>
-                    广州国际媒体港烟感1</p>
-                <p class="equipment-list-time">安装位置：<span>12楼A栋192室</span></p>
-                <p class="equipment-list-info">
-                    <span><span>IMEI：</span>8901930003921</span>
-                    <a  href="javascript:;" class="equipmentk-list-state">
-                        <i class="icon-arrow"></i>
-                    </a>
-                </p>
-            </li>
-
+          <Card :item='item' v-for="(item, index) in list" :key="index" />
         </ul>
         <div class="list-bottom-img"></div>
-        
     </div>
 </div>
 
 </template>
  
 <script>
+
+import Card from '@/pages/device/components/card.vue'
 export default {
   
   components: {
+    Card
   },
   data () {
     return {
+      list:[
+        {
+          imgUrl:'/static/assets/images/equipment_list1.png',
+          number:'8901930003921',
+          name:'广州国际媒体港烟感1',
+          address:'12楼A栋192室'
+        },
+         {
+          imgUrl:'/static/assets/images/equipment_list2.png',
+          number:'8901930003921',
+          name:'广州国际媒体港烟感1',
+          address:'12楼A栋192室'
+        },
+         {
+          imgUrl:'/static/assets/images/equipment_list3.png',
+          number:'8901930003921',
+          name:'广州国际媒体港烟感1',
+          address:'12楼A栋192室'
+        },
+      ],
       deviceData: [
       {
         label:'设备总数',

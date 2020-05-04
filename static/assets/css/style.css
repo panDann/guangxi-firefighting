@@ -365,7 +365,7 @@
 .equipment-list-box .equipment-list-ul{
     padding: 0rem 0.2rem;
 }
-
+/* 
 .equipment-list-ul .equipment-list-li {
     padding: 0.2rem 0rem;
     border-bottom: 1px solid #eee;
@@ -381,7 +381,7 @@
 .equipment-list-li .equipment-list-title {
     color: #2A2A2F;
     font-size: 0.48rem;
-    /*font-weight: 600;*/
+  
 }
 
 .equipment-list-gaojin{
@@ -416,7 +416,7 @@
 
 .equipmentk-list-state{
     float: right;
-}
+} */
 
 /*表单信息*/
 
