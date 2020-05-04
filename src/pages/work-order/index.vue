@@ -1,85 +1,150 @@
 <template>
-<div class="gx-container gx-home">
-        <div class="gx-home-work">
-            <p class="gx-home-time">2020年4月11日</p>
-            <div class="gx-home-remind">
-                <div class="gx-home-remind-box">
-                    <div class="gx-home-bg">
-                        <p class="gx-home-unm">3</p>
+<div class="gx-container gx-work-con">
+    <Tab :list='tabList' @tab-change='tabChange'/>
+        <div  v-show="activeKey===0">
+            <ul class="work-list-ul">
+                <Card type='workOrder'  :item='item' v-for="(item, index) in allList" :key="index" />
+            </ul>
+            <div class="list-bottom-img"></div>
+        </div>
+        <div  v-show="activeKey===1">
+            <ul class="work-list-ul">
+                <li class="work-list-li">
+                    <div  class="work-list-img">
+                        <img src="images/work_list1.png">
                     </div>
-                    <p class="gx-home-title">巡检任务</p>
-                </div>
-
-            </div>
-        </div>
-        <div class="gx-home-info">
-            <i class="icon-remind"></i>
-            <span class="gx-home-text">广州国际媒体港12楼A区烟感报警</span>
-        </div>
-        <div class="gx-home-card">
-            <a class="gx-home-card-title"><span>设备情况</span><i class="icon-arrow"></i></a>
-            <ul class="gx-home-card-ul">
-                <li class="gx-home-card-list">
-                    <img src="images/home_list1.png" class="gx-home-card-list-img">
-                    <p class="gx-home-card-list-title">设备总数</p>
-                    <p class="gx-home-card-list-unm">23</p>
+                    <div class="work-list-right">
+                        <p class="work-list-title">低电量警告</p>
+                        <p class="work-list-time">2020-02-22 15:22:43</p>
+                        <p class="work-list-info">
+                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
+                            <a href="javascript:;" class="work-list-state work-list-processed">待处理<i class="icon-arrow"></i></a>
+                        </p>
+                    </div>
                 </li>
-                <li class="gx-home-card-list">
-                    <img src="images/home_list2.png" class="gx-home-card-list-img">
-                    <p class="gx-home-card-list-title">在线设备</p>
-                    <p class="gx-home-card-list-unm">10</p>
-                </li>
-                <li class="gx-home-card-list">
-                    <img src="images/home_list3.png" class="gx-home-card-list-img">
-                    <p class="gx-home-card-list-title">离线设备</p>
-                    <p class="gx-home-card-list-unm">2</p>
+                <li class="work-list-li">
+                    <div  class="work-list-img">
+                        <img src="images/work_list3.png">
+                    </div>
+                    <div class="work-list-right">
+                        <p class="work-list-title">烟感01 烟雾报警</p>
+                        <p class="work-list-time">2020-02-22 15:22:43</p>
+                        <p class="work-list-info">
+                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
+                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
+                        </p>
+                    </div>
                 </li>
             </ul>
+            <div class="list-bottom-img"></div>
         </div>
-    <div class="gx-home-card">
-        <a class="gx-home-card-title"><span>今日警告</span><i class="icon-arrow"></i></a>
-        <ul class="gx-home-card-ul">
-            <li class="gx-home-card-list">
-                <img src="images/home_list4.png" class="gx-home-card-list-img">
-                <p class="gx-home-card-list-title">告警总数</p>
-                <p class="gx-home-card-list-unm">23</p>
-            </li>
-            <li class="gx-home-card-list">
-                <img src="images/home_list5.png" class="gx-home-card-list-img">
-                <p class="gx-home-card-list-title">低电量告警</p>
-                <p class="gx-home-card-list-unm">4</p>
-            </li>
-            <li class="gx-home-card-list">
-                <img src="images/home_list6.png" class="gx-home-card-list-img">
-                <p class="gx-home-card-list-title">低电量告警</p>
-                <p class="gx-home-card-list-unm">8</p>
-            </li>
-            <li class="gx-home-card-list">
-                <img src="images/home_list7.png" class="gx-home-card-list-img">
-                <p class="gx-home-card-list-title">防拆告警</p>
-                <p class="gx-home-card-list-unm">2</p>
-            </li>
-        </ul>
-    </div>
-    <div class="gx-home-card">
-        <div class="gx-home-card-title">
-            <span>近15天告警统计</span>
-            <div class="gx-home-card-tab">
-                <span class="active">近7天</span> <span>近15天</span>
-            </div>
+        <div  v-show="activeKey===2">
+            <ul class="work-list-ul">
+                <li class="work-list-li">
+                    <div  class="work-list-img">
+                        <img src="images/work_list1.png">
+                    </div>
+                    <div class="work-list-right">
+                        <p class="work-list-title">低电量警告</p>
+                        <p class="work-list-time">2020-02-22 15:22:43</p>
+                        <p class="work-list-info">
+                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
+                            <a  href="javascript:;" class="work-list-state work-list-processed">待处理<i class="icon-arrow"></i></a>
+                        </p>
+                    </div>
+                </li>
+                <li class="work-list-li">
+                    <div  class="work-list-img">
+                        <img src="images/work_list3.png">
+                    </div>
+                    <div class="work-list-right">
+                        <p class="work-list-title">烟感01 烟雾报警</p>
+                        <p class="work-list-time">2020-02-22 15:22:43</p>
+                        <p class="work-list-info">
+                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
+                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
+                        </p>
+                    </div>
+                </li>
+                <li class="work-list-li">
+                    <div  class="work-list-img">
+                        <img src="images/work_list3.png">
+                    </div>
+                    <div class="work-list-right">
+                        <p class="work-list-title">烟感01 烟雾报警</p>
+                        <p class="work-list-time">2020-02-22 15:22:43</p>
+                        <p class="work-list-info">
+                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
+                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
+                        </p>
+                    </div>
+                </li>
+                <li class="work-list-li">
+                    <div  class="work-list-img">
+                        <img src="images/work_list2.png">
+                    </div>
+                    <div class="work-list-right">
+                        <p class="work-list-title">低电量警告</p>
+                        <p class="work-list-time">2020-02-22 15:22:43</p>
+                        <p class="work-list-info">
+                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
+                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <div class="list-bottom-img"></div>
         </div>
-        <div id="homecharts" class="gx-home-chart"></div>
-    </div>
 </div>
+
 </template>
 
 <script>
-import card from '@/components/card'
+import Tab from '@/components/tab/index.vue'
+import Card from '@/components/card/card.vue'
 
 export default {
   data () {
     return {
-      motto: 'Hello miniprograme',
+        activeKey:0,
+      tabList: [
+          {
+              label:'全部',
+              count:'10',
+              key:0
+          },
+          {
+              label:'待处理',
+              count:'10',
+              key:1
+          },
+          {
+              label:'已完成',
+              count:'10',
+              key:2
+          },
+      ],
+      allList:[
+          {
+              imgUrl:'/static/assets/images/work_list1.png',
+              name:'低电量警告',
+              time:'2020-02-22 15:22:43',
+              status:'待处理',
+              address:'广州国际媒体港12楼A栋'
+          },{
+              imgUrl:'/static/assets/images/work_list2.png',
+              name:'低电量警告',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              address:'广州国际媒体港12楼A栋'
+          },{
+              imgUrl:'/static/assets/images/work_list3.png',
+              name:'烟感01',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              address:'广州国际媒体港12楼A栋'
+          },
+      ],
       userInfo: {
         nickName: 'mpvue',
         avatarUrl: 'http://mpvue.com/assets/logo.png'
@@ -88,7 +153,8 @@ export default {
   },
 
   components: {
-    card
+    Tab,
+    Card
   },
 
   methods: {
@@ -99,6 +165,11 @@ export default {
       } else {
         mpvue.navigateTo({ url })
       }
+    },
+    tabChange(index) {
+        console.log(index);
+        
+        this.activeKey=index
     },
     clickHandle (ev) {
       console.log('clickHandle:', ev)
@@ -111,56 +182,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 150px;
-}
-
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
-}
-.all{
-  width:7.5rem;
-  height:1rem;
-  background-color:blue;
-}
-.all:after{
-  display:block;
-  content:'';
-  clear:both;
-}
-.left{
-  float:left;
-  width:3rem;
-  height:1rem;
-  background-color:red;
-}
-
-.right{
-  float:left;
-  width:4.5rem;
-  height:1rem;
-  background-color:green;
-}
-</style>

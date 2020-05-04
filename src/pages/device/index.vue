@@ -1,258 +1,73 @@
 <template>
-<div class="gx-container gx-home">
-        <div class="gx-home-work">
-            <p class="gx-home-time">2020年4月11日</p>
-            <div class="gx-home-remind">
-                <div class="gx-home-remind-box">
-                    <div class="gx-home-bg">
-                        <p class="gx-home-unm">3</p>
-                    </div>
-                    <p class="gx-home-title">巡检任务</p>
-                </div>
-
+<div class="gx-container gx-work-con">
+    <div class="gx-top-search flex">
+            <picker mode='date' class="gx-select-title">
+              全部
+                <img class="icon-arrow-bottom" src="/static/assets/images/icon_arrow_bottom.png" />
+              </picker>
+        <div class="gx-search">
+            <div class="gx-search-con flex">
+                <img class="icon-search" src="/static/assets/images/icon_search.png" />
+                <input  type="text" placeholder="搜索..." class="gx-search-input">
+                <img class="icon-del-btn" src="/static/assets/images/icon_close.png" />
             </div>
         </div>
-        <div class="gx-home-info">
-            <i class="icon-remind"></i>
-            <span class="gx-home-text">广州国际媒体港12楼A区烟感报警</span>
-        </div>
-        <div class="gx-home-card">
-            <a class="gx-home-card-title"><span>设备情况</span><i class="icon-arrow"></i></a>
-            <ul class="gx-home-card-ul">
-                <li class="gx-home-card-list" v-for="(item, index) in deviceData" :key="index">
-                    <img :src="item.imgUrl" class="gx-home-card-list-img">
-                    <p class="gx-home-card-list-title">{{item.label}}</p>
-                    <p class="gx-home-card-list-unm">{{item.count}}</p>
-                </li>
-            </ul>
-        </div>
-    <div class="gx-home-card">
-        <a class="gx-home-card-title"><span>今日警告</span><i class="icon-arrow"></i></a>
-        <ul class="gx-home-card-ul">
-            <li class="gx-home-card-list" v-for="(item, index) in warningData" :key="index">
-                <img :src="item.imgUrl" class="gx-home-card-list-img">
-                <p class="gx-home-card-list-title">{{item.label}}</p>
-                <p class="gx-home-card-list-unm">{{item.count}}</p>
+            <span class="gx-search-close">取消</span>
+    </div>
+    <div class="equipment-list-box">
+        <ul class="equipment-list-ul">
+            <li class="equipment-list-li">
+                <p class="equipment-list-title">
+                    <i class="equipment-list-gaojin"></i>
+                    广州国际媒体港烟感1</p>
+                <p class="equipment-list-time">安装位置：<span>12楼A栋192室</span></p>
+                <p class="equipment-list-info">
+                    <span><span>IMEI：</span>8901930003921</span>
+                    <a  href="javascript:;" class="equipmentk-list-state">
+                        <i class="icon-arrow"></i>
+                    </a>
+                </p>
             </li>
+            <li class="equipment-list-li">
+                <p class="equipment-list-title">
+                    <i class="equipment-list-zaixian"></i>
+                    广州国际媒体港烟感1</p>
+                <p class="equipment-list-time">安装位置：<span>12楼A栋192室</span></p>
+                <p class="equipment-list-info">
+                    <span><span>IMEI：</span>8901930003921</span>
+                    <a  href="javascript:;" class="equipmentk-list-state">
+                        <i class="icon-arrow"></i>
+                    </a>
+                </p>
+            </li>
+            <li class="equipment-list-li">
+                <p class="equipment-list-title">
+                    <i class="equipment-list-lixian"></i>
+                    广州国际媒体港烟感1</p>
+                <p class="equipment-list-time">安装位置：<span>12楼A栋192室</span></p>
+                <p class="equipment-list-info">
+                    <span><span>IMEI：</span>8901930003921</span>
+                    <a  href="javascript:;" class="equipmentk-list-state">
+                        <i class="icon-arrow"></i>
+                    </a>
+                </p>
+            </li>
+
         </ul>
+        <div class="list-bottom-img"></div>
+        
     </div>
-    <div class="gx-home-card">
-        <div class="gx-home-card-title">
-            <span>近15天告警统计</span>
-            <div class="gx-home-card-tab">
-                <span :class="(activeTab&&'active')" @click="activeTab=1">近7天</span> <span :class="(!activeTab&&'active')" @click="activeTab=0">近15天</span>
-            </div>
-        </div> 
-        <div class="gx-home-chart">
-        <mpvue-echarts :echarts="echarts" :onInit="initChart" />
-        </div>
-        <!-- <div id="homecharts" class="gx-home-chart"></div> -->
-    </div>
-</div> 
+</div>
+
 </template>
  
 <script>
-import echarts from 'echarts'
-import mpvueEcharts from 'mpvue-echarts'
-function initChart (canvas, width, height) {
-  const chart = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  })
-  canvas.setChart(chart)
-  var option = {
-    backgroundColor: '#fff',
-    color: ['#37A2DA', '#67E0E3'],
-   
-    legend: {
-      data: ['A', 'B']
-    },
-    grid: {
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-    },
-    yAxis: {
-      x: 'center',
-      type: 'value',
-      splitLine: {
-        lineStyle: {
-          type: 'dashed'
-        }
-      }
-    }, 
-    series: [{
-      name: 'A',
-      type: 'line',
-      smooth: true,
-      data: [18, 36, 65, 30, 78, 40, 33]
-    }, {
-      name: 'B',
-      type: 'line',
-      smooth: true,
-      data: [12, 50, 51, 35, 70, 30, 20]
-    }]
-  }
-  chart.setOption(option)
-  return chart
-}
-
-// function initChart(canvas,width,height) {
-//       const chart = echarts.init(canvas, null, {
-//          width: width,
-//          height: height
-//        })
-//       canvas.setChart(chart)
-//             var  option = {
-//                 title: {
-//                     show:false,
-//                 },
-//                 tooltip: {
-//                     trigger: 'axis',
-//                     axisPointer: {
-//                         lineStyle: {
-//                             color: '#57617B'
-//                         }
-//                     },
-//                     textStyle:{
-//                         fontSize:12
-//                     }
-//                 },
-//                 legend: {
-//                     icon: 'rect',
-//                     itemWidth: 5,
-//                     itemHeight: 5,
-//                     itemGap: 13,
-//                     data: [{
-//                         name:'烟雾报警',
-//                     },{
-//                         name:'低电量报警',
-//                     }],
-//                     textStyle: {
-//                         fontSize: 10,
-//                         color: '#666'
-//                     }
-//                 },
-//                 grid: {
-//                     left: '6%',
-//                     right: '5%',
-//                     bottom: '5%',
-//                     top: "20%",
-//                     containLabel: true
-//                 },
-//                 xAxis: [{
-//                     type: 'category',
-//                     boundaryGap: [0.2, 0.2],
-//                     nameLocation: 'middle' ,
-//                     axisLine: {
-//                         show: false,
-//                         alignWithLabel:2,
-//                     },
-//                     axisLabel: {
-//                         margin: 5,
-//                         textStyle: {
-//                             fontSize:10,
-//                             color:'#666'
-//                         }
-//                     },
-//                     axisTick:{
-//                         show: false,
-//                     },
-//                     splitLine:{
-//                         show: false,
-//                     },
-//                     data: ['8.15','8.16', '8.17', '8.18', '8.19', '8.20', '8.21', '8.22']
-//                 }],
-//                 yAxis: [{
-//                     name:'个数',
-//                     nameLocation: 'end' ,
-//                     nameTextStyle:{
-//                         color :'#666',
-//                         fontSize: 10 ,
-//                     },
-//                     type: 'value',
-//                     axisTick: {
-//                         show: false
-//                     },
-//                     axisLine: {
-//                         show: false,
-//                     },
-//                     axisLabel: {
-//                         margin: 10,
-//                         textStyle: {
-//                             fontSize: 10,
-//                             color:'#666'
-//                         }
-//                     },
-//                     splitLine: {
-//                         show: true,
-//                         textStyle: {
-//                             color:'#eee'
-//                         }
-//                     }
-//                 }],
-//                 series: [{
-//                     name: '烟雾报警',
-//                     type: 'line',
-//                     smooth: true,
-//                     symbol: 'circle',
-//                     symbolSize: 2,
-//                     showSymbol: false,
-//                     lineStyle: {
-//                         normal: {
-//                             width: 1
-//                         }
-//                     },
-//                     itemStyle: {
-//                         normal: {
-//                             color: '#F04864',
-//                             borderColor: '#F04864',
-//                             borderWidth: 1
-
-//                         }
-//                     },
-//                     data: [40, 55, 34, 37, 47 ,59, 44, 37, 28]
-//                 }, {
-//                     name: '低电量报警',
-//                     type: 'line',
-//                     smooth: true,
-//                     symbol: 'circle',
-//                     symbolSize: 2,
-//                     showSymbol: false,
-//                     lineStyle: {
-//                         normal: {
-//                             width: 1
-//                         }
-//                     },
-
-//                     itemStyle: {
-//                         normal: {
-//                             color: '#FACC14',
-//                             borderColor: '#FACC14',
-//                             borderWidth: 1
-
-//                         }
-//                     },
-//                     data: [43, 36, 45, 55, 33, 41, 58, 46, 42]
-//                 } ]
-//             };
-
-//              myChart.setOption(option);
-//            return  myChart
-//             // window.resize(myChart.resize);
-//     }
 export default {
   
   components: {
-    mpvueEcharts
   },
   data () {
     return {
-      echarts,
-      activeTab:1,
-      initChart,
       deviceData: [
       {
         label:'设备总数',
@@ -293,10 +108,7 @@ export default {
     }
   },
 
-  mounted() {
-    console.log(mpvueEcharts);
-    
-  },
+
   methods: {
     bindViewTap () {
       const url = '../logs/main'
@@ -320,5 +132,94 @@ export default {
 </script>
 
 <style scoped>
+
+.gx-top-search{
+    padding: 0.2rem;
+    border-bottom: 1px solid #eee;
+    font-size: 0.4rem;
+}
+.gx-top-search .gx-select-box{
+    float: left;
+    width:20%;
+    height: 0.9rem;
+    line-height:  0.9rem;
+    text-align: center;
+    position: relative;
+}
+
+.gx-select-title{
+    font-size: 0.4rem;
+    color: #444;
+}
+
+.gx-select-title span{
+    padding-left: 0.3rem;
+}
+
+.gx-select-list {
+    z-index: 1000;
+    display: none;
+    background: #fff;
+    border: 1px solid #eee;
+}
+.flex {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.gx-search{
+  flex:2;
+  margin: 0 .1rem;
+}
+.gx-search-con{
+  
+    border: 1px solid #ddd;
+}
+
+.gx-search .gx-search-close{
+    margin-left: 0.3rem;
+    color: #666;
+}
+.gx-search-input{
+    padding: 0.1rem 0;
+    color: #333;
+    flex-grow: 1;
+    height:  0.6rem;
+    line-height:  0.9rem;
+    font-size: 0.4rem;
+
+}
+.icon-arrow-bottom{
+    width: 0.3rem;
+    height: 0.3rem;
+    /* background-image: url("../images/icon_arrow_bottom.png"); */
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+}
+
+.icon-search{
+    width: 0.5rem;
+    height: 0.5rem;
+    /* background-image: url("../images/icon_search.png"); */
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    vertical-align: -0.1rem;
+    margin:0rem 0.2rem;
+}
+
+.icon-del-btn{
+    width: 0.4rem;
+    height: 0.4rem;
+    /* background-image: url("../images/icon_close.png"); */
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    vertical-align: -0.1rem;
+    margin:0rem 0.2rem;
+}
+
 
 </style>

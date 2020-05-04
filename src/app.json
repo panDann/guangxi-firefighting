@@ -1,9 +1,14 @@
 {
   "pages": [
+    "pages/mine/main",
     "pages/device/main",
     "pages/inspection/main",
+    "pages/device/detail/main",
+    "pages/inspection/detail/main",
+    "pages/first/main",
     "pages/work-order/main",
-    "pages/mine/main"
+    "pages/mine/modify/main",
+    "pages/login/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -12,7 +17,7 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "color": "#7E848B",
+    "color": "#7E848B", 
     "selectedColor": "#FF8C01",
     "list": [
       {
