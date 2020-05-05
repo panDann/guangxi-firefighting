@@ -5,13 +5,13 @@
         <div>
             <label class="login-form-label">手机号码</label>
             <div class="login-form-item">
-                <input type="text" v-model="form.phone" placeholder="请输入手机号码" id="login-input-name">
+                <input type="number" v-model="form.phone" placeholder="请输入手机号码" id="login-input-name">
             </div>
         </div>
         <div>
             <label  class="login-form-label">验证码</label>
             <div class="login-form-item">
-                <input type="text" v-model="form.code" placeholder="请输入验证码" id="login-input-pwd">
+                <input type="number" v-model="form.code" placeholder="请输入验证码" id="login-input-pwd">
                 <a href="javascript:;" class="login-btn-code" @click="getCode">获取验证码</a>
             </div>
         </div>
