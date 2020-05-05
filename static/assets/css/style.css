@@ -1,6 +1,6 @@
 
 /*登录*/
-
+/* 
 .gx-login-container {
     position: fixed;
     top: 0;
@@ -53,18 +53,6 @@
     flex-grow: 1;
 }
 
-.gx-login-container .gx-login-form .login-form-item input::-moz-placeholder {
-    color: #bbb;
-    opacity: 1;
-}
-
-.gx-login-container .gx-login-form .login-form-item input:-ms-input-placeholder {
-    color: #bbb;
-}
-
-.gx-login-container .gx-login-form .login-form-item input::-webkit-input-placeholder {
-    color: #bbb;
-}
 
 .gx-login-container .gx-login-form .login-form-item .del-btn {
     padding-left: 0.4rem;
@@ -106,7 +94,7 @@
     background-color: #dd7601;
     color: #fff;
     pointer-events: auto;
-}
+} */
 
 /* 内容 */
 .gx-content {
@@ -429,7 +417,7 @@
 
 .gx-form-card-header span{
     font-weight: 600;
-    font-size: 0.48rem;
+    font-size: 0.38rem;
 }
 
 .gx-form-card-header i{
@@ -506,7 +494,7 @@
 .gx-form-card-list{
     padding: 0.35rem 0.4rem;
     border-bottom: 1px solid #eee;
-    font-size: 0.42rem;
+    font-size: 0.35rem;
 }
 
 .gx-form-card-list .gx-form-list-left{
@@ -531,7 +519,7 @@
 }
 
 .gx-form-card-list .list-left-bold{
-    font-size: 0.46rem;
+    font-size: 0.38rem;
     font-weight: 600;
 }
 

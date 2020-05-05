@@ -5,7 +5,7 @@
     <div id="tabContent" class="gx-tab-content">
         <div v-show="activeKey===0">
             <ul class="work-list-ul">
-                <Card type='workOrder'  :item='item' v-for="(item, index) in allList" :key="index" />
+                <Card type='inspection'  :item='item' v-for="(item, index) in allList" :key="index" />
 
                 <!-- <li class="work-list-li">
                     <div  class="work-list-img">

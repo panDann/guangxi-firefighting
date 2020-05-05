@@ -9,19 +9,33 @@
           <p class="work-list-time">{{item.summary?item.summary:item.time}}</p>
           <p class="work-list-info">
               <span><i class="icon-address" v-show="item.address"></i>{{item.address? item.address:item.time}}</span>
-              <a href="javascript:;" class="work-list-state work-list-processed">{{item.status}}<i class="icon-arrow"></i></a>
+              <a href="javascript:;" class="work-list-state work-list-processed" @click="leapToDetail" >{{item.status}}<i class="icon-arrow"></i></a>
           </p>
       </div>
   </li>
 </template>
 
 <script>
+import {inspectionDetailPagePath,} from '@/consts/path'
+
 export default {
   props: {
      item:{
           type:Object,
           required:true,
           default:()=>{}
+      },
+      type:{
+          type:String,
+          required:true,
+          default:''
+      }
+  },
+  methods: {
+      leapToDetail() {
+          if(this.type !=='inspection')return
+          let url =inspectionDetailPagePath
+          mpvue.navigateTo({url})
       }
   },
 }

@@ -7,7 +7,7 @@
                 <p class="equipment-list-time">安装位置：<span>{{item.address}}</span></p>
                 <p class="equipment-list-info">
                     <span><span>IMEI：</span>{{item.number}}</span>
-                    <a  href="javascript:;" class="equipmentk-list-state">
+                    <a  href="javascript:;" class="equipmentk-list-state" @click="leapToDetail">
                         <i class="icon-arrow"></i>
                     </a>
                 </p>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import {deviceDetailPagePath,} from '@/consts/path'
+
 export default {
   props: {
      item:{
@@ -22,6 +24,12 @@ export default {
           required:true,
           default:()=>{}
       }
+  },
+  methods: {
+       leapToDetail() {
+          let url = deviceDetailPagePath
+          mpvue.navigateTo({url})
+      },
   },
 }
 </script>

@@ -8,7 +8,7 @@
         <div class="gx-form-card-body">
             <!--在线-->
             <div class="equipment-info-img">
-                <img src="images/list_img.png" class="list-img-bg">
+                <img src="/static/assets/images/list_img.png" class="list-img-bg">
                 <span class="equipment-info-zaixian">在线</span>
             </div>
             <!--告警-->

@@ -27,7 +27,7 @@
                 <p class="gx-my-card-list flex-row">
                     <span class="gx-card-list-left">电话</span>
                     <span class="gx-card-list-right">
-                        188****7533 | <a>修改</a>
+                        188****7533 | <a @click="leapToModify">修改</a>
                     </span>
                 </p>
             </div>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import card from '@/components/card'
+import {mineModifyPagePath} from '@/consts/path'
 
 export default {
   data () {
@@ -51,29 +51,14 @@ export default {
       }
     }
   },
-
-  components: {
-    card
-  },
-
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      if (mpvuePlatform === 'wx') {
-        mpvue.switchTab({ url })
-      } else {
-        mpvue.navigateTo({ url })
+      leapToModify() {
+          let url = mineModifyPagePath
+          mpvue.navigateTo({url})
       }
-    },
-    clickHandle (ev) {
-      console.log('clickHandle:', ev)
-      // throw {message: 'custom test'}
-    }
   },
 
-  created () {
-    // let app = getApp()
-  }
+
 }
 </script>
 

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/login/main",
     "pages/device/main",
+    "pages/login/main",
     "pages/inspection/main",
     "pages/device/detail/main",
     "pages/inspection/detail/main",
@@ -10,6 +10,7 @@
     "pages/work-order/main",
     "pages/mine/modify/main"
   ],
+  
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
