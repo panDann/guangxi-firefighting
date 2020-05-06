@@ -96,3 +96,24 @@ input::placeholder{
     color: #fff;
     pointer-events: auto;
 }
+
+.gx-login-btn_new {
+    width: 100%;
+    height: 1rem;
+    background-color: #FF8C01;
+    font-size: 0.45rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 0.05rem;
+    margin-top: 0.84rem;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.08rem;
+}
+
+.gx-login-btn_new:active {
+    background-color: #dd7601;
+    color: #fff;
+    pointer-events: auto;
+}

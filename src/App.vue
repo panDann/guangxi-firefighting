@@ -23,6 +23,14 @@ export default {
       logs.unshift(Date.now())
       mpvue.setStorageSync('logs', logs)
     }
+    let loginInfo = wx.getStorageSync("loginInfo")
+      console.log('App start...')
+      console.log(loginInfo)
+      if(loginInfo){
+        wx.reLaunch({url: '/pages/first/main'})
+      }else{
+        wx.reLaunch({url: '/pages/login/main'})
+      }
   },
   log () {
     console.log(`log at:${Date.now()}`)

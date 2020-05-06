@@ -5,7 +5,7 @@
             <div class="gx-home-remind">
                 <div class="gx-home-remind-box">
                     <div class="gx-home-bg">
-                        <p class="gx-home-unm">3</p>
+                        <p class="gx-home-unm">{{patrolTask}}</p>
                     </div>
                     <p class="gx-home-title">巡检任务</p>
                 </div>
@@ -48,10 +48,17 @@
         </div>
         <!-- <div id="homecharts" class="gx-home-chart"></div> -->
     </div>
+    <div class="equipment-list-box">
+        <ul class="equipment-list-ul">
+          <Card :item='item' v-for="(item, index) in list" :key="index" />
+        </ul>
+        <div class="list-bottom-img"></div>
+    </div>
 </div> 
 </template>
  
 <script>
+import * as Api from '@/api/first.js'
 import {line,} from 'echarts'
 import mpvueEcharts from 'mpvue-echarts'
 const echarts = line
@@ -254,20 +261,21 @@ export default {
       echarts,
       activeTab:1,
       initChart,
+      patrolTask: '0',
       deviceData: [
       {
         label:'设备总数',
         imgUrl:'/static/assets/images/home_list1.png',
-        count:23
+        count:0
       },
       {
         label:'在线设备',
         imgUrl:'/static/assets/images/home_list2.png',
-        count:23
+        count:0
       }, {
         label:'离线设备',
         imgUrl:'/static/assets/images/home_list3.png',
-        count:23
+        count:0
       },
     ],
      warningData: [
@@ -312,6 +320,34 @@ export default {
       console.log('clickHandle:', ev)
       // throw {message: 'custom test'}
     }
+  },
+
+  async onLoad(){
+    let that = this
+    let loginInfo = wx.getStorageSync("loginInfo")
+    console.log('onLoad...')
+    console.log(loginInfo)
+
+    //请求巡检任务
+    console.log('patrolTask...')
+    let resTask = await Api.patrolTask(loginInfo.userId, loginInfo.tenantId, loginInfo.token)
+    console.log(resTask)
+    if(resTask.data && resTask.code==="0"){
+      that.patrolTask = resTask.data.count?resTask.data.count:0
+    }
+
+    //设备情况
+    console.log('equipmentInfo...')
+    let resDevice = await Api.equipmentInfo(loginInfo.tenantId, loginInfo.token)
+    console.log(resDevice)
+    if(resDevice.data && resDevice.code==="0"){
+      console.log('========')
+      that.deviceData[0].count = resDevice.data.sumcount?res.data.sumcount:0
+      that.deviceData[1].count = resDevice.data.online?res.data.online:0
+      that.deviceData[2].count = resDevice.data.offline?res.data.offline:0
+      console.log(that.deviceData)
+    }
+    
   },
 
   created () {

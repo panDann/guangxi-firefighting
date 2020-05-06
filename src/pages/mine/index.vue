@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="gx-my-return">
-            <button class="gx-btn-return">退出登录</button>
+            <button class="gx-btn-return" @click="logout">退出登录</button>
         </div>
 </div>
 </template>
@@ -55,9 +55,15 @@ export default {
       leapToModify() {
           let url = mineModifyPagePath
           mpvue.navigateTo({url})
+      },
+      logout(){
+        wx.reLaunch({
+            url: '/pages/login/main'
+        })
+        wx.clearStorageSync()
+        console.log('clearStorageSync...')
       }
   },
-
 
 }
 </script>

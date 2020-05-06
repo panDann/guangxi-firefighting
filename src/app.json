@@ -1,12 +1,12 @@
 {
   "pages": [
-    "pages/device/main",
     "pages/login/main",
+    "pages/first/main",
+    "pages/device/main",
     "pages/inspection/main",
     "pages/device/detail/main",
     "pages/inspection/detail/main",
     "pages/mine/main",
-    "pages/first/main",
     "pages/work-order/main",
     "pages/mine/modify/main"
   ],
@@ -22,8 +22,8 @@
     "selectedColor": "#FF8C01",
     "list": [
       {
-        "pagePath": "pages/device/main",
-        "text": "设备",
+        "pagePath": "pages/first/main",
+        "text": "首页",
         "iconPath": "static/tabs/nav_1.png",
         "selectedIconPath": "static/tabs/nav_1_active.png"
       },

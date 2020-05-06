@@ -1,6 +1,6 @@
 import mpvue from 'mpvue'
 
-const host = ''
+const host = 'http://127.0.0.1:8080/'
 
 export const fetch  = (url, data,method='POST',header = {})=> {
       wx.showLoading({
@@ -11,7 +11,7 @@ export const fetch  = (url, data,method='POST',header = {})=> {
           url: host + url, // 仅为示例
           method,
           data,
-          headers: {
+          header: {
             'content-type': 'application/json', // 默认值
             ...header,
           },

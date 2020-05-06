@@ -6,5 +6,5 @@ export const getCode = (phone)=>{
 }
 
 export const login = (data)=>{
-    return fetch(`login`,data,)
+    return fetch(`login`,data,'POST',{'content-type':'application/x-www-form-urlencoded'})
 }
