@@ -3,11 +3,11 @@
       <li class="equipment-list-li">
                 <p class="equipment-list-title">
                     <img :src="item.imgUrl" class="equipment-list-gaojin"></i>
-                    {{item.name}}</p>
-                <p class="equipment-list-time">安装位置：<span>{{item.address}}</span></p>
+                    {{item.equipmentName}}</p>
+                <p class="equipment-list-time">安装位置：<span>{{item.address?item.address:''+item.areaName}}</span></p>
                 <p class="equipment-list-info">
-                    <span><span>IMEI：</span>{{item.number}}</span>
-                    <a  href="javascript:;" class="equipmentk-list-state" @click="leapToDetail">
+                    <span><span>IMEI：</span>{{item.snNo}}</span>
+                    <a  href="javascript:;" class="equipmentk-list-state" @click="leapToDetail(item.id)">
                         <i class="icon-arrow"></i>
                     </a>
                 </p>
@@ -26,8 +26,11 @@ export default {
       }
   },
   methods: {
-       leapToDetail() {
-          let url = deviceDetailPagePath
+       leapToDetail(id) {
+          console.log('id: '+id)
+          let url = deviceDetailPagePath+'?deviceId='+id
+          console.log('leapToDetail...')
+          console.log(url)
           mpvue.navigateTo({url})
       },
   },
