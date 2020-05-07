@@ -2,8 +2,8 @@
 <div class="gx-my-container">
         <div class="gx-my-bg">
             <div class="gx-my-info">
-                <img :src="userInfo.imgUrl" class="gx-my-header">
-                <span class="gx-my-name">{{userInfo.nickName}}</span>
+                <img :src="imgUrl" class="gx-my-header">
+                <span class="gx-my-name">{{name}}</span>
             </div>
         </div>
         <div class="gx-my-card">
@@ -14,20 +14,20 @@
             <div class="gx-my-card-body">
                 <p class="gx-my-card-list">
                     <span class="gx-card-list-left">单位</span>
-                    <span class="gx-card-list-right">广州国际媒体港</span>
+                    <span class="gx-card-list-right">{{company}}</span>
                 </p>
                 <p class="gx-my-card-list">
                     <span class="gx-card-list-left">部门</span>
-                    <span class="gx-card-list-right">消防管理室</span>
+                    <span class="gx-card-list-right">{{department}}</span>
                 </p>
                 <p class="gx-my-card-list">
                     <span class="gx-card-list-left">岗位</span>
-                    <span class="gx-card-list-right">消防巡检员</span>
+                    <span class="gx-card-list-right">{{position}}</span>
                 </p>
                 <p class="gx-my-card-list flex-row">
                     <span class="gx-card-list-left">电话</span>
                     <span class="gx-card-list-right">
-                        188****7533 | <a @click="leapToModify">修改</a>
+                        {{phone}} | <a @click="leapToModify">修改</a>
                     </span>
                 </p>
             </div>
@@ -44,11 +44,13 @@ import {mineModifyPagePath} from '@/consts/path'
 export default {
   data () {
     return {
-      motto: 'Hello miniprograme',
-      userInfo: {
-        nickName: 'joe',
-        imgUrl: '/static/assets/images/my_user.png'
-      }
+      name:'',
+      company:'',
+      department:'',
+      position:'',
+      phone:'',
+      nickName: '',
+      imgUrl: '/static/assets/images/my_user.png'
     }
   },
   methods: {
@@ -64,6 +66,12 @@ export default {
         console.log('clearStorageSync...')
       }
   },
+
+  onLoad(){
+      let loginInfo = wx.getStorageSync("loginInfo")
+      this.name = loginInfo.name
+      this.phone = loginInfo.phone
+  }
 
 }
 </script>
