@@ -3,176 +3,9 @@
     <Tab :list='tabList' @tab-change='tabChange'/>
 
     <div id="tabContent" class="gx-tab-content">
-        <div v-show="activeKey===0">
+        <div>
             <ul class="work-list-ul">
                 <Card type='inspection'  :item='item' v-for="(item, index) in allList" :key="index" />
-
-                <!-- <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/patrol_list1.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">每周一消防基础巡检（14周）</p>
-                        <p class="work-list-time"><span>李明</span> | <span>基础巡检</span></p>
-                        <p class="work-list-info">
-                            <span>2020-02-23 13:23:30</span>
-                            <a href="javascript:;" class="work-list-state work-list-processed">未完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/patrol_list2.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">每月消防网络巡检（4月）</p>
-                        <p class="work-list-time"><span>李明</span> | <span>网络巡检</span></p>
-                        <p class="work-list-info">
-                            <span>2020-02-23 13:23:30</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/patrol_list3.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">每日消防网络巡检</p>
-                        <p class="work-list-time"><span>李明</span></p>
-                        <p class="work-list-info">
-                            <span>2020-02-23 13:23:30</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/patrol_list4.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">临时巡检</p>
-                        <p class="work-list-time"><span>李明</span> | <span>临时巡检</span></p>
-                        <p class="work-list-info">
-                            <span>2020-02-23 13:23:30</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li> -->
-            </ul>
-            <div class="list-bottom-img"></div>
-        </div>
-        <div v-show="activeKey===1">
-            <ul class="work-list-ul">
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/patrol_list1.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">每周一消防基础巡检（14周）</p>
-                        <p class="work-list-time"><span>李明</span> | <span>基础巡检</span></p>
-                        <p class="work-list-info">
-                            <span>2020-02-23 13:23:30</span>
-                            <a href="javascript:;" class="work-list-state work-list-processed">未完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/patrol_list2.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">每月消防网络巡检（4月）</p>
-                        <p class="work-list-time"><span>李明</span> | <span>网络巡检</span></p>
-                        <p class="work-list-info">
-                            <span>2020-02-23 13:23:30</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/patrol_list3.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">每日消防网络巡检</p>
-                        <p class="work-list-time"><span>李明</span></p>
-                        <p class="work-list-info">
-                            <span>2020-02-23 13:23:30</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/patrol_list4.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">临时巡检</p>
-                        <p class="work-list-time"><span>李明</span> | <span>临时巡检</span></p>
-                        <p class="work-list-info">
-                            <span>2020-02-23 13:23:30</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/patrol_list4.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">临时巡检</p>
-                        <p class="work-list-time"><span>李明</span> | <span>临时巡检</span></p>
-                        <p class="work-list-info">
-                            <span>2020-02-23 13:23:30</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-            </ul>
-            <div class="list-bottom-img"></div>
-        </div>
-        <div v-show="activeKey===2">
-            <ul class="work-list-ul">
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/patrol_list1.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">每周一消防基础巡检（14周）</p>
-                        <p class="work-list-time"><span>李明</span> | <span>基础巡检</span></p>
-                        <p class="work-list-info">
-                            <span>2020-02-23 13:23:30</span>
-                            <a href="javascript:;" class="work-list-state work-list-processed">未完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/patrol_list3.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">每日消防网络巡检</p>
-                        <p class="work-list-time"><span>李明</span></p>
-                        <p class="work-list-info">
-                            <span>2020-02-23 13:23:30</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                <div  class="work-list-img">
-                    <img src="images/patrol_list4.png">
-                </div>
-                <div class="work-list-right">
-                    <p class="work-list-title">临时巡检</p>
-                    <p class="work-list-time"><span>李明</span> | <span>临时巡检</span></p>
-                    <p class="work-list-info">
-                        <span>2020-02-23 13:23:30</span>
-                        <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                    </p>
-                </div>
-            </li>
             </ul>
             <div class="list-bottom-img"></div>
         </div>
@@ -182,13 +15,15 @@
 </template>
 
 <script>
+
+import * as Api from '@/api/order.js'
 import Tab from '@/components/tab/index.vue'
 import Card from '@/components/card/card.vue'
 
 export default {
   data () {
     return {
-        activeKey:0,
+      activeKey:0,
       tabList: [
           {
               label:'全部',
@@ -207,32 +42,6 @@ export default {
           },
       ],
       allList:[
-          {
-              imgUrl:'/static/assets/images/patrol_list1.png',
-              name:'每周一消防基础巡检（14周）',
-              time:'2020-02-22 15:22:43',
-              status:'待处理',
-              summary:'李明 | 临时巡检'
-          },{
-              imgUrl:'/static/assets/images/patrol_list2.png',
-              name:'每月消防网络巡检（4月）',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          },{
-              imgUrl:'/static/assets/images/patrol_list3.png',
-              name:'每日消防网络巡检',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          },
-          {
-              imgUrl:'/static/assets/images/patrol_list4.png',
-              name:'临时巡检',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          },
       ],
       userInfo: {
         nickName: 'mpvue',
@@ -255,15 +64,172 @@ export default {
         mpvue.navigateTo({ url })
       }
     },
-    tabChange(index) {
+    async tabChange(index) {
+
+        let that = this
+        let loginInfo = wx.getStorageSync("loginInfo")
         console.log(index);
-        
         this.activeKey=index
+        console.log('tttttttt...')
+
+        if(loginInfo.sysUserType==3){
+            //请求巡检工单
+            console.log('patrolOrder...')
+            let resPatrolTask = await Api.scomPatrolTask(loginInfo.token, loginInfo.id, index)
+            console.log(resPatrolTask)
+            if(resPatrolTask.code!="0"){
+                wx.showToast({
+                    title: resPatrolTask.msg,
+                    icon: 'none'
+                })
+            }
+
+            if(index==1){
+                that.allList = [
+                    {
+              imgUrl:'/static/assets/images/patrol_list1.png',
+              name:'每周二房消防基础巡检（14周）',
+              time:'2020-02-22 15:22:43',
+              status:'待处理',
+              summary:'李明 | 临时巡检'
+          }
+                ]
+            }else if(index==2){
+                that.allList = [
+                    {
+              imgUrl:'/static/assets/images/patrol_list2.png',
+              name:'每月消防网络巡检（4月）',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              summary:'李明 | 临时巡检'
+          },{
+              imgUrl:'/static/assets/images/patrol_list3.png',
+              name:'每日消防网络巡检',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              summary:'李明 | 临时巡检'
+          },
+          {
+              imgUrl:'/static/assets/images/patrol_list4.png',
+              name:'临时巡检',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              summary:'李明 | 临时巡检'
+          },
+                ]
+            }else{
+                that.allList = [
+                    {
+              imgUrl:'/static/assets/images/patrol_list1.png',
+              name:'每周二房消防基础巡检（14周）',
+              time:'2020-02-22 15:22:43',
+              status:'待处理',
+              summary:'李明 | 临时巡检'
+          },{
+              imgUrl:'/static/assets/images/patrol_list2.png',
+              name:'每月消防网络巡检（4月）',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              summary:'李明 | 临时巡检'
+          },{
+              imgUrl:'/static/assets/images/patrol_list3.png',
+              name:'每日消防网络巡检',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              summary:'李明 | 临时巡检'
+          },
+          {
+              imgUrl:'/static/assets/images/patrol_list4.png',
+              name:'临时巡检',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              summary:'李明 | 临时巡检'
+          }
+                ]
+            }
+        }
+        console.log('aaaaaaaaa...')
+
     },
     clickHandle (ev) {
       console.log('clickHandle:', ev)
       // throw {message: 'custom test'}
     }
+  },
+
+  async onLoad(){
+    let that = this
+
+    let loginInfo = wx.getStorageSync("loginInfo")
+    console.log('inspection/main/onLoad...')
+    console.log(loginInfo)
+
+    if(loginInfo.sysUserType==3){
+      //巡检员
+      wx.setNavigationBarTitle({
+        title: '巡检工单' 
+      })
+
+      //请求巡检工单
+      console.log('patrolOrder...')
+      let resPatrolTask = await Api.scomPatrolTask(loginInfo.token, loginInfo.id, 0)
+      console.log(resPatrolTask)
+      if(resPatrolTask.code!="0"){
+        wx.showToast({
+          title: resPatrolTask.msg,
+          icon: 'none'
+        })
+      }
+
+        that.allList = [
+                    {
+              imgUrl:'/static/assets/images/patrol_list1.png',
+              name:'每周二房消防基础巡检（14周）',
+              time:'2020-02-22 15:22:43',
+              status:'待处理',
+              summary:'李明 | 临时巡检'
+          },{
+              imgUrl:'/static/assets/images/patrol_list2.png',
+              name:'每月消防网络巡检（4月）',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              summary:'李明 | 临时巡检'
+          },{
+              imgUrl:'/static/assets/images/patrol_list3.png',
+              name:'每日消防网络巡检',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              summary:'李明 | 临时巡检'
+          },
+          {
+              imgUrl:'/static/assets/images/patrol_list4.png',
+              name:'临时巡检',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              summary:'李明 | 临时巡检'
+          }
+                ]
+
+    }else if(loginInfo.sysUserType==0){
+      //管理员
+      wx.setNavigationBarTitle({
+        title: '巡检计划' 
+      })
+
+      //请求巡检计划
+      console.log('PatrolPlan...')
+      let resPatrolPlan = await Api.scomPatrolPlan(loginInfo.token, loginInfo.tenantId)
+      console.log(resPatrolPlan)
+      if(resPatrolPlan.code!="0"){
+        wx.showToast({
+          title: resPatrolPlan.msg,
+          icon: 'none'
+        })
+      }
+    }else{
+
+    }
+
   },
 
   created () {
