@@ -1,30 +1,30 @@
-import mpvue from 'mpvue'
 
-const host = 'http://127.0.0.1:8080/'
+const host = 'http://127.0.0.1:8080/',
+      $hideLoading = mpvue.hideLoading
 
 export const fetch  = (url, data,method='POST',header = {})=> {
-      wx.showLoading({
-        title: '加载中' // 数据请求前loading
+      mpvue.showLoading({
+        title:data.loadingText || '加载中' // 数据请求前loading
       })
       return new Promise((resolve, reject) => {
-        wx.request({
+        mpvue.request({
           url: host + url, // 仅为示例
-          method,
+          method,// 默认POST请求
           data,
           header: {
             'content-type': 'application/json', // 默认值
             ...header,
           },
           success: function (res) {
-            wx.hideLoading()
+            $hideLoading()
             resolve(res.data)
           },
           fail: function (res) {
-            wx.hideLoading()
+            $hideLoading()
             reject(false)
           },
           complete: function () {
-            wx.hideLoading()
+            $hideLoading()
           }
         })
       })

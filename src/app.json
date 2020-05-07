@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/login/main",
     "pages/first/main",
+    "pages/login/main",
     "pages/device/main",
     "pages/inspection/main",
     "pages/device/detail/main",
