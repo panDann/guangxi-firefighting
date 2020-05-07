@@ -26,6 +26,7 @@
  
 <script>
 
+import * as Api from '@/api/device.js'
 import Card from '@/pages/device/components/card.vue'
 import mpvue from 'mpvue'
 
@@ -39,6 +40,11 @@ export default {
   },
   data () {
     return {
+      iconList:[
+        '/static/assets/images/equipment_list2.png',
+        '/static/assets/images/equipment_list3.png',
+        '/static/assets/images/equipment_list1.png',
+      ],
       list:[
         {
           imgUrl:'/static/assets/images/equipment_list1.png',
@@ -102,8 +108,35 @@ export default {
 
   methods: {
 
-     
-  
+  },
+
+  async onLoad(){
+    let that = this
+    let loginInfo = wx.getStorageSync("loginInfo")
+    console.log('onLoad...')
+    console.log(loginInfo)
+
+    //请求设备列表
+    console.log('DeviceList...')
+    let resDevList = await Api.scomEquipmentInfoGetList(loginInfo.token, loginInfo.tenantId)
+
+    if(!resDevList || resDevList.code!="0"){
+        wx.showToast({
+          title: resDevList.msg,
+          icon: 'none'
+        })
+        return
+    }
+    
+    that.list=[]
+    console.log('device ...')
+    for (let devkey in resDevList.data) {
+      let device = resDevList.data[devkey]
+      let status = device.status-1
+      device.imgUrl = that.iconList[(status==0||status==1)?status:2]
+      that.list.push(device);
+    }
+    console.log(that.list)
   },
 
   created () {

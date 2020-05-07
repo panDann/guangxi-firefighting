@@ -17,7 +17,7 @@
             <span class="gx-home-text">广州国际媒体港12楼A区烟感报警</span>
         </div>
         <div class="gx-home-card">
-            <a class="gx-home-card-title"><span>设备情况</span><i class="icon-arrow"></i></a>
+            <a href="javascript:;" @click="deviceList" class="gx-home-card-title"><span>设备情况</span><i class="icon-arrow"></i></a>
             <ul class="gx-home-card-ul">
                 <li class="gx-home-card-list" v-for="(item, index) in deviceData" :key="index">
                     <img :src="item.imgUrl" class="gx-home-card-list-img">
@@ -162,6 +162,14 @@ export default {
     
   },
   methods: {
+
+    deviceList(){
+      console.log("deviceList...")
+      wx.navigateTo({
+        url: '/pages/device/main'
+      })
+    },
+
     bindViewTap () {
       const url = '../logs/main'
       if (mpvuePlatform === 'wx') {
@@ -213,4 +221,7 @@ export default {
 
 <style scoped>
 
+.gx-home-card-title:active {
+    pointer-events: auto;
+}
 </style>
