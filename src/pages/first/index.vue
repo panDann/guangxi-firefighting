@@ -1,13 +1,13 @@
 <template>
 <div class="gx-container gx-home">
         <div class="gx-home-work">
-            <p class="gx-home-time">2020年4月11日</p>
+            <p class="gx-home-time">{{today}}</p>
             <div class="gx-home-remind">
                 <div class="gx-home-remind-box">
                     <div class="gx-home-bg">
-                        <p class="gx-home-unm">{{patrolTask}}</p>
+                        <p class="gx-home-unm">{{totalTask}}</p>
                     </div>
-                    <p class="gx-home-title">巡检任务</p>
+                    <p class="gx-home-title">{{totalTitle}}</p>
                 </div>
 
             </div>
@@ -27,11 +27,11 @@
             </ul>
         </div>
     <div class="gx-home-card">
-        <a class="gx-home-card-title"><span>今日警告</span><i class="icon-arrow"></i></a>
+        <a class="gx-home-card-title"><span>今日警告</span></a>
         <ul class="gx-home-card-ul">
-            <li class="gx-home-card-list" v-for="(item, index) in warningData" :key="index">
-                <img :src="item.imgUrl" class="gx-home-card-list-img">
-                <p class="gx-home-card-list-title">{{item.label}}</p>
+            <li class="gx-home-card-list" v-for="(item, index) in todayWarningData" :key="index">
+                <img :src="warningIcon[item.id]" class="gx-home-card-list-img">
+                <p class="gx-home-card-list-title">{{item.name}}</p>
                 <p class="gx-home-card-list-unm">{{item.count}}</p>
             </li>
         </ul>
@@ -113,10 +113,13 @@ export default {
   },
   data () {
     return {
+      today:'',
+      sysUserType:0,
       echarts,
       activeTab:1,
       initChart,
-      patrolTask: '0',
+      totalTask: 0,
+      totalTitle: '',
       deviceData: [
       {
         label:'设备总数',
@@ -133,27 +136,35 @@ export default {
         count:0
       },
     ],
-     warningData: [
-      {
-        label:'告警总数',
-        imgUrl:'/static/assets/images/home_list4.png',
-        count:23
-      },
-      {
-        label:'低电量告警',
-        imgUrl:'/static/assets/images/home_list5.png',
-        count:23
-      }, {
-        label:'低电量告警',
-        imgUrl:'/static/assets/images/home_list6.png',
-        count:23
-      },
-      {
-        label:'防拆告警',
-        imgUrl:'/static/assets/images/home_list7.png',
-        count:23
-      },
-    ]
+     todayWarningData:[
+       {
+                id: 20,
+                name: "烟雾告警",
+                count: 56
+        },
+        {
+                id: 21,
+                name: "防拆告警",
+                count: 8
+        },
+        {
+                id: 22,
+                name: "烟感故障",
+                count: 8
+        },
+        {
+                id: 23,
+                name: "低电量告警",
+                count: 16
+        }
+
+     ],
+      warningIcon: {
+        '20':'/static/assets/images/home_list5.png',
+        '21':'/static/assets/images/home_list6.png',
+        '22':'/static/assets/images/home_list7.png',
+        '23':'/static/assets/images/home_list4.png',
+      }
     }
   },
 
@@ -188,18 +199,45 @@ export default {
   async onLoad(){
     let that = this
     let loginInfo = wx.getStorageSync("loginInfo")
-    console.log('onLoad...')
+    console.log('first/main/onLoad...')
     console.log(loginInfo)
 
-    //请求巡检任务
-    console.log('patrolTask...')
-    let resTask = await Api.patrolTask(loginInfo.userId, loginInfo.tenantId, loginInfo.token)
-    console.log(resTask)
-    if(resTask.data && resTask.code==="0"){
-      that.patrolTask = resTask.data.count?resTask.data.count:0
+    //当天日期
+    let day1 = new Date();
+    let year = day1.getFullYear()+'年';
+    let month = day1.getMonth()+1+'月';
+    let date = day1.getDate()+'日';
+    that.today = [year,month,date].join('')
+    console.log(that.today);
+
+    //根据身份请求任务总数
+    that.sysUserType = loginInfo.sysUserTyp
+    if(loginInfo.sysUserType==3){
+      //巡检员
+      that.totalTitle = '巡检任务'
+      //请求巡检任务
+      console.log('patrolTask...')
+      let resTask = await Api.patrolTask(loginInfo.userId, loginInfo.tenantId, loginInfo.token)
+      console.log(resTask)
+      if(resTask.data && resTask.code==="0"){
+        that.totalTask = resTask.data.count?resTask.data.count:0
+      }
+    }else if(loginInfo.sysUserType==0){
+      //管理员
+      that.totalTitle = '告警任务'
+
+      //请求告警任务
+      console.log('warningTask...')
+      let resWarnCount = await Api.warnOrderInfo(loginInfo.userId, loginInfo.tenantId, loginInfo.token)
+      console.log(resWarnCount)
+      if(resWarnCount.data && resWarnCount.code==="0"){
+        that.totalTask = resWarnCount.data.count?resWarnCount.data.count:0
+      }
+    }else{
+
     }
 
-    //设备情况
+    //请设备情况
     console.log('equipmentInfo...')
     let resDevice = await Api.equipmentInfo(loginInfo.tenantId, loginInfo.token)
     console.log(resDevice)
@@ -210,7 +248,20 @@ export default {
       that.deviceData[2].count = resDevice.data.offline?res.data.offline:0
       console.log(that.deviceData)
     }
-    
+
+    //今日告警
+    console.log('today warn...')
+    let resTodayWarn = await Api.warnStatisitics(loginInfo.tenantId, loginInfo.token)
+    console.log(resTodayWarn)
+    if(resTodayWarn.data && resTodayWarn.code==="0"){
+      console.log('+++++++++')
+
+      // for(let index in that.todayWarningData){
+      //   let warnId = that.todayWarningData[index].id
+      //   console.log('id: '+warnId)
+      //   console.log(that.warningIcon[warnId]);
+      // }
+    }
   },
 
   created () {
