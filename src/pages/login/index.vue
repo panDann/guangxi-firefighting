@@ -80,7 +80,7 @@ export default {
           
          let res = await Api.getCode(phone)
          console.log(res)
-         if(res.code==0){
+         if(res.code=="0"){
            form.verifyToken = res.data;
            console.log('verifyToken: '+form.verifyToken);
          }else{
