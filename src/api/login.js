@@ -8,3 +8,7 @@ export const getCode = (phone)=>{
 export const login = (data)=>{
     return fetch(`login`,data,'POST',{'content-type':'application/x-www-form-urlencoded'})
 }
+
+export const checkToken = (token, tenantsId)=>{
+    return fetch(`data/qeury/warnStatisitics`,{"tenantId": tenantsId}, 'POST' ,{"Authorization":token, "Content-Type":"application/json"})
+}
