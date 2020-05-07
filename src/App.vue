@@ -1,4 +1,6 @@
 <script>
+import * as Api from '@/api/login.js'
+
 export default {
   created () {
     // 调用API从本地缓存中获取数据
@@ -23,11 +25,14 @@ export default {
       logs.unshift(Date.now())
       mpvue.setStorageSync('logs', logs)
     }
+
     let loginInfo = wx.getStorageSync("loginInfo")
       console.log('App start...')
       console.log(loginInfo)
       if(loginInfo){
-        wx.reLaunch({url: '/pages/first/main'})
+
+        checkToken(loginInfo.token)
+        
       }else{
         wx.reLaunch({url: '/pages/login/main'})
       }
@@ -35,6 +40,22 @@ export default {
   log () {
     console.log(`log at:${Date.now()}`)
   }
+}
+
+//暂时使用该方法检查token过期或非法
+async function checkToken(token){
+  console.log('check token...')
+  console.log(token)
+  let res = await Api.checkToken(token, 0)
+    
+  console.log(res)
+  if(res.code=="2003"||res.code=="2005"){
+      wx.clearStorageSync()
+      console.log('clearStorageSync...')
+      wx.reLaunch({url: '/pages/login/main'})
+      return 
+  }
+  wx.reLaunch({url: '/pages/first/main'})
 }
 </script>
 
