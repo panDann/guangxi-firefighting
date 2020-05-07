@@ -12,3 +12,12 @@ export const login = (data)=>{
 export const checkToken = (token, tenantsId)=>{
     return fetch(`data/qeury/warnStatisitics`,{"tenantId": tenantsId}, 'POST' ,{"Authorization":token, "Content-Type":"application/json"})
 }
+
+export const updateMobilePhone = (token, userid, phone)=>{
+    console.log('-------ccc--------')
+    let param = {}
+    param.id = userid
+    param.mobilePhone = phone
+    console.log(param)
+    return fetch(`system/sys_user/update`,param,'POST',{"Authorization":token, 'content-type':'application/json'})
+}

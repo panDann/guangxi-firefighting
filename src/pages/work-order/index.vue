@@ -1,97 +1,9 @@
 <template>
 <div class="gx-container gx-work-con">
     <Tab :list='tabList' @tab-change='tabChange'/>
-        <div  v-show="activeKey===0">
+        <div>
             <ul class="work-list-ul">
                 <Card type='workOrder'  :item='item' v-for="(item, index) in allList" :key="index" />
-            </ul>
-            <div class="list-bottom-img"></div>
-        </div>
-        <div  v-show="activeKey===1">
-            <ul class="work-list-ul">
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/work_list1.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">低电量警告</p>
-                        <p class="work-list-time">2020-02-22 15:22:43</p>
-                        <p class="work-list-info">
-                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
-                            <a href="javascript:;" class="work-list-state work-list-processed">待处理<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/work_list3.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">烟感01 烟雾报警</p>
-                        <p class="work-list-time">2020-02-22 15:22:43</p>
-                        <p class="work-list-info">
-                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-            </ul>
-            <div class="list-bottom-img"></div>
-        </div>
-        <div  v-show="activeKey===2">
-            <ul class="work-list-ul">
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/work_list1.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">低电量警告</p>
-                        <p class="work-list-time">2020-02-22 15:22:43</p>
-                        <p class="work-list-info">
-                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
-                            <a  href="javascript:;" class="work-list-state work-list-processed">待处理<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/work_list3.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">烟感01 烟雾报警</p>
-                        <p class="work-list-time">2020-02-22 15:22:43</p>
-                        <p class="work-list-info">
-                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/work_list3.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">烟感01 烟雾报警</p>
-                        <p class="work-list-time">2020-02-22 15:22:43</p>
-                        <p class="work-list-info">
-                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
-                <li class="work-list-li">
-                    <div  class="work-list-img">
-                        <img src="images/work_list2.png">
-                    </div>
-                    <div class="work-list-right">
-                        <p class="work-list-title">低电量警告</p>
-                        <p class="work-list-time">2020-02-22 15:22:43</p>
-                        <p class="work-list-info">
-                            <span><i class="icon-address"></i>广州国际媒体港12楼A栋</span>
-                            <a href="javascript:;" class="work-list-state work-list-complete">已完成<i class="icon-arrow"></i></a>
-                        </p>
-                    </div>
-                </li>
             </ul>
             <div class="list-bottom-img"></div>
         </div>
@@ -100,6 +12,8 @@
 </template>
 
 <script>
+
+import * as Api from '@/api/order.js'
 import Tab from '@/components/tab/index.vue'
 import Card from '@/components/card/card.vue'
 
@@ -124,27 +38,7 @@ export default {
               key:2
           },
       ],
-      allList:[
-          {
-              imgUrl:'/static/assets/images/work_list1.png',
-              name:'低电量警告',
-              time:'2020-02-22 15:22:43',
-              status:'待处理',
-              address:'广州国际媒体港12楼A栋'
-          },{
-              imgUrl:'/static/assets/images/work_list2.png',
-              name:'低电量警告',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              address:'广州国际媒体港12楼A栋'
-          },{
-              imgUrl:'/static/assets/images/work_list3.png',
-              name:'烟感01',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              address:'广州国际媒体港12楼A栋'
-          },
-      ],
+      allList:[],
       userInfo: {
         nickName: 'mpvue',
         avatarUrl: 'http://mpvue.com/assets/logo.png'
@@ -176,6 +70,49 @@ export default {
       // throw {message: 'custom test'}
     }
   },
+
+  async onLoad(){
+    let that = this
+
+    let loginInfo = wx.getStorageSync("loginInfo")
+    console.log('inspection/main/onLoad...')
+    console.log(loginInfo)
+
+    //请求工单列表
+      console.log('OrderList...')
+      let resOrder = await Api.scomWorkOrderList(loginInfo.token, loginInfo.id, 0)
+      console.log(resOrder)
+      if(resOrder.code!="0"){
+        wx.showToast({
+          title: resOrder.msg,
+          icon: 'none'
+        })
+      }
+
+      console.log('ccccc...')
+
+        that.allList = [
+                     {
+              imgUrl:'/static/assets/images/work_list1.png',
+              name:'低电量警告',
+              time:'2020-02-22 15:22:43',
+              status:'待处理',
+              address:'广州国际媒体港12楼A栋'
+          },{
+              imgUrl:'/static/assets/images/work_list2.png',
+              name:'低电量警告',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              address:'广州国际媒体港12楼A栋'
+          },{
+              imgUrl:'/static/assets/images/work_list3.png',
+              name:'烟感01',
+              time:'2020-02-22 15:22:43',
+              status:'已完成',
+              address:'广州国际媒体港12楼A栋'
+          },
+                ]
+},
 
   created () {
     // let app = getApp()

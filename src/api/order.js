@@ -4,15 +4,18 @@ import {fetch} from '@/utils/fetch.js'
 export const scomWorkOrderList = (token, transactorId, status, pageNum, pagesize)=>{
     let param = {}
     param.transactorId = transactorId
-    if(status){
+    console.log('-------bbb--------')
+    console.log(typeof status == 'number')
+    if(typeof status == 'number'){
         param.status = status
     }
-    if(pageNum){
+    if(typeof pageNum == 'number'){
         param.pageNum = pageNum
     }
-    if(pagesize){
+    if(typeof pagesize == 'number'){
         param.PageSize = pagesize
     }
+    console.log(param)
     return fetch(`system/scomWorkOrderList/getList`,param, 'POST' ,{"Authorization":token, "Content-Type":"application/x-www-form-urlencoded"})
 }
 
