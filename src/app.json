@@ -6,6 +6,7 @@
     "pages/inspection/main",
     "pages/device/detail/main",
     "pages/inspection/detail/main",
+    "pages/inspection/plan/main",
     "pages/mine/main",
     "pages/work-order/main",
     "pages/mine/modify/main"

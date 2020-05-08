@@ -9,7 +9,7 @@
           <p class="work-list-time">{{item.summary?item.summary:item.time}}</p>
           <p class="work-list-info">
               <span><i class="icon-address" v-show="item.address"></i>{{item.address? item.address:item.time}}</span>
-              <a href="javascript:;" class="work-list-state work-list-processed" @click="leapToDetail" >{{item.status}}<i class="icon-arrow"></i></a>
+              <a href="javascript:;" class="work-list-state work-list-processed" @click="leapToDetail(item.id)" >{{item.status}}<i class="icon-arrow"></i></a>
           </p>
       </div>
   </li>
@@ -29,13 +29,31 @@ export default {
           type:String,
           required:true,
           default:''
+      },
+      usertype:{
+          type:String,
+          required:true,
+          default:''
       }
   },
   methods: {
-      leapToDetail() {
+      leapToDetail(id) {
+          console.log('leapToDetail111....')
+          console.log(id)
           if(this.type !=='inspection')return
-          let url =inspectionDetailPagePath
-          mpvue.navigateTo({url})
+
+
+        console.log('userType==> '+this.usertype)
+        if(this.usertype=="3"){
+            wx.navigateTo({
+                url: '/pages/inspection/detail/main'+'?planId='+id
+            })
+        }else if(this.usertype=="0"){
+            wx.navigateTo({
+                url: '/pages/inspection/plan/main'+'?planId='+id
+            })
+
+        }
       }
   },
 }
