@@ -21,7 +21,7 @@ export const fetch  = (url, data,method='POST',header = {})=> {
           },
           fail: function (res) {
             $hideLoading()
-            reject(false)
+            reject({msg:'请求失败'})
           },
           complete: function () {
             $hideLoading()
