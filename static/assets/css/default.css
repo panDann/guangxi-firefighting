@@ -3,6 +3,9 @@
     flex-flow: row nowrap;
     align-items: center;
   }
+.flex-wrap {
+  flex-flow: row wrap;
+}
   .justify-between {
     justify-content: space-between;
   }
@@ -121,4 +124,23 @@
     width: 80%;
   }
   
-    
+  .gx-my-return{
+    margin: 0rem 0.6rem 0rem;
+    position: fixed;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+}
+
+.gx-my-return .gx-btn-return{
+    width: 100%;
+    height: .8rem;
+    background: #FF8C01;
+    color: #fff;
+    outline: none;
+    border-radius: 0.05rem;
+    font-size: 0.35rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
