@@ -45,20 +45,23 @@ export default {
       leapToDetail(id) {
           console.log('leapToDetail111....')
           console.log(id)
-          if(this.type !=='inspection')return
 
-
-        console.log('userType==> '+this.usertype)
-        if(this.usertype=="3"){
+          if(this.type=='inspection'){
+            console.log('userType==> '+this.usertype)
+            if(this.usertype=="3"){
+                wx.navigateTo({
+                    url: '/pages/inspection/detail/main'+'?planId='+id
+                })
+            }else if(this.usertype=="0"){
+                wx.navigateTo({
+                    url: '/pages/inspection/plan/main'+'?planId='+id
+                })
+            }
+          }else if(this.type=='workOrder'){
             wx.navigateTo({
-                url: '/pages/inspection/detail/main'+'?planId='+id
-            })
-        }else if(this.usertype=="0"){
-            wx.navigateTo({
-                url: '/pages/inspection/plan/main'+'?planId='+id
-            })
-
-        }
+                url: '/pages/work-order/handle-order/main'+'?planId='+id
+            })   
+          }
       }
   },
 }
