@@ -75,10 +75,10 @@ function initChart (canvas, width, height) {
   canvas.setChart(chart)
   var option = {
     backgroundColor: '#fff',
-    color: ['#37A2DA', '#67E0E3'],
+    color: ['#37A2DA', '#67E0E3','#108EE9'],
    
     legend: {
-      data: ['A', 'B']
+      data: ['烟雾告警', '低电压告警', '防拆告警']
     },
     grid: {
       containLabel: true
@@ -97,16 +97,22 @@ function initChart (canvas, width, height) {
       }
     }, 
     series: [{
-      name: 'A',
+      name: '烟雾告警',
       type: 'line',
       smooth: true,
       data: [18, 36, 65, 30, 78, 40, 33]
     }, {
-      name: 'B',
+      name: '低电压告警',
       type: 'line',
       smooth: true,
       data: [12, 50, 51, 35, 70, 30, 20]
-    }]
+    },{
+      name: '防拆告警',
+      type: 'line',
+      smooth: true,
+      data: [38, 20, 33, 44, 72, 10, 51]
+    }],
+     
   }
   chart.setOption(option)
   return chart
@@ -263,6 +269,13 @@ export default {
 </script>
 
 <style scoped>
+
+.gx-home-chart {
+  width: 100%;
+  height: 500rpx;
+  margin-left: 0px;
+  margin-top: 0rpx;
+}
 
 .gx-home-card-title:active {
     pointer-events: auto;
