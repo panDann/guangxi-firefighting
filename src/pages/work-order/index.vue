@@ -23,7 +23,14 @@ import List from '@/components/list/index.vue'
 export default {
   data () {
     return {
-        activeKey:0,
+      warningIcon: {
+        key20:'/static/assets/images/work_list3.png',
+        key21:'/static/assets/images/work_list2.png',
+        key22:'/static/assets/images/work_list3.png',
+        key23:'/static/assets/images/work_list1.png', 
+      },
+      baseStatus:['待完成','待完成','已完成'],
+      activeKey:0,
       tabList: [
           {
               label:'全部',
@@ -65,10 +72,42 @@ export default {
         mpvue.navigateTo({ url })
       }
     },
-    tabChange(index) {
-        console.log(index);
-        
-        this.activeKey=index
+    async tabChange(index) {
+      console.log(index);
+      this.activeKey=index
+      let that = this
+      let status = index
+      if(index==0){
+        status = null
+      }else if(index==1){
+        status = 0
+      }
+      console.log('vvvvvvvvvvv...')
+      let loginInfo = wx.getStorageSync("loginInfo")
+      let resOrder = await Api.scomWorkOrderList(loginInfo.token, loginInfo.id, status)
+      console.log(resOrder)
+      if(resOrder.code!="0"){
+        wx.showToast({
+          title: resOrder.msg,
+          icon: 'none'
+        })
+        return
+      }
+
+      that.allList = []
+      for (let devkey in resOrder.data) {
+        let orderTmp = {}
+        let order = resOrder.data[devkey]
+        orderTmp.name = order.topic
+        orderTmp.status = that.baseStatus[order.status]
+        let alarmTypeId = order.alarmTypeId
+        orderTmp.imgUrl = that.warningIcon['key'+alarmTypeId]
+        orderTmp.address = order.address
+        orderTmp.time = order.createTime
+        orderTmp.showcolor = order.status
+        that.allList.push(orderTmp);
+      }
+
     },
     clickHandle (ev) {
       console.log('clickHandle:', ev)
@@ -85,38 +124,31 @@ export default {
 
     //请求工单列表
       console.log('OrderList...')
-      let resOrder = await Api.scomWorkOrderList(loginInfo.token, loginInfo.id, 0)
+      let resOrder = await Api.scomWorkOrderList(loginInfo.token, loginInfo.id)
       console.log(resOrder)
       if(resOrder.code!="0"){
         wx.showToast({
           title: resOrder.msg,
           icon: 'none'
         })
+        return
       }
 
       console.log('ccccc...')
 
-        that.allList = [
-                     {
-              imgUrl:'/static/assets/images/work_list1.png',
-              name:'低电量警告',
-              time:'2020-02-22 15:22:43',
-              status:'待处理',
-              address:'广州国际媒体港12楼A栋'
-          },{
-              imgUrl:'/static/assets/images/work_list2.png',
-              name:'低电量警告',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              address:'广州国际媒体港12楼A栋'
-          },{
-              imgUrl:'/static/assets/images/work_list3.png',
-              name:'烟感01',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              address:'广州国际媒体港12楼A栋'
-          },
-                ]
+      that.allList = []
+      for (let devkey in resOrder.data) {
+        let orderTmp = {}
+        let order = resOrder.data[devkey]
+        orderTmp.name = order.topic
+        orderTmp.status = that.baseStatus[order.status]
+        let alarmTypeId = order.alarmTypeId
+        orderTmp.imgUrl = that.warningIcon['key'+alarmTypeId]
+        orderTmp.address = order.address
+        orderTmp.time = order.createTime
+        orderTmp.showcolor = order.status
+        that.allList.push(orderTmp);
+      }
 },
 
   created () {
