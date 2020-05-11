@@ -1,7 +1,16 @@
 <template>
 <div class="gx-container gx-work-con">
-    <Tab :list='tabList' @tab-change='tabChange' v-show="userType1==3"/>
-    <div class="gx-top-search flex" v-if="userType1==0">
+   <div class="gx-top-search flex-row justify-start">
+            <picker mode='date' class="gx-select-title">
+              2020.05
+                <img class="icon-arrow-bottom" src="/static/assets/images/icon_arrow_bottom.png" />
+              </picker>
+             <picker mode='date' class="gx-select-title">
+                烟雾告警
+                <img class="icon-arrow-bottom" src="/static/assets/images/icon_arrow_bottom.png" />
+              </picker>
+    </div>
+    <!-- <div class="gx-top-search flex" v-if="userType1==0">
             <picker mode='selector' class="gx-select-title" @bindchange="bindPickerChange" :value='index' :range="basePatrolType">
               {{basePatrolTypeName}}
                 <img class="icon-arrow-bottom" src="/static/assets/images/icon_arrow_bottom.png" />
@@ -18,7 +27,7 @@
             </div>
         </div>
             <span class="gx-search-close">检索</span>
-    </div>
+    </div> -->
 
     <div id="tabContent" class="gx-tab-content">
         <div>
@@ -35,7 +44,6 @@
 <script>
 
 import * as Api from '@/api/order.js'
-import Tab from '@/components/tab/index.vue'
 import Card from '@/components/card/card.vue'
 
 export default {
@@ -74,19 +82,11 @@ export default {
   },
 
   components: {
-    Tab,
     Card,
   },
 
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      if (mpvuePlatform === 'wx') {
-        mpvue.switchTab({ url })
-      } else {
-        mpvue.navigateTo({ url })
-      }
-    },
+  
     leapToDetail(planId) {
 
 
@@ -323,89 +323,22 @@ export default {
 <style scoped>
 
 .gx-top-search{
-    padding: 0.2rem;
-    border-bottom: 1px solid #eee;
-    font-size: 0.4rem;
-}
-.gx-top-search .gx-select-box{
-    float: left;
-    width:20%;
-    height: 0.9rem;
-    line-height:  0.9rem;
-    text-align: center;
-    position: relative;
+    font-size:13px;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(51,51,51,1);
+    line-height:18px;
+    padding: .3rem 0;
+    border-bottom: 1px #e8e5e5 solid
 }
 
 .gx-select-title{
-    font-size: 0.4rem;
-    color: #444;
+ margin: 0 .1rem
 }
-
-.gx-select-title span{
-    padding-left: 0.3rem;
-}
-
-.gx-select-list {
-    z-index: 1000;
-    display: none;
-    background: #fff;
-    border: 1px solid #eee;
-}
-.flex {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-}
-.gx-search{
-  flex:2;
-  margin: 0 .1rem;
-}
-.gx-search-con{
-  
-    border: 1px solid #ddd;
-}
-
-.gx-search .gx-search-close{
-    margin-left: 0.3rem;
-    color: #666;
-}
-.gx-search-input{
-    padding: 0.1rem 0;
-    color: #333;
-    flex-grow: 1;
-    height:  0.6rem;
-    line-height:  0.9rem;
-    font-size: 0.4rem;
-
-}
-.icon-arrow-bottom{
-    width: 0.3rem;
-    height: 0.3rem;
-    /* background-image: url("../images/icon_arrow_bottom.png"); */
+.icon-arrow-bottom {
+    width: 19rpx;
+    height: 10rpx;
     display: inline-block;
-}
-
-.icon-search{
-    width: 0.5rem;
-    height: 0.5rem;
-    /* background-image: url("../images/icon_search.png"); */
-    background-repeat: no-repeat;
-    background-size: 100%;
-    display: inline-block;
-    vertical-align: -0.1rem;
-    margin:0rem 0.2rem;
-}
-
-.icon-del-btn{
-    width: 0.4rem;
-    height: 0.4rem;
-    /* background-image: url("../images/icon_close.png"); */
-    background-repeat: no-repeat;
-    background-size: 100%;
-    display: inline-block;
-    vertical-align: -0.1rem;
-    margin:0rem 0.2rem;
 }
 
 

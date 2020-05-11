@@ -1,5 +1,9 @@
 <template>
-<div class="gx-container gx-home">
+<page-meta
+  
+  root-font-size="16px"
+>
+ <div class="gx-container gx-home">
         <div class="gx-home-work">
             <p class="gx-home-time">{{today}}</p>
             <div class="gx-home-remind">
@@ -55,6 +59,8 @@
         <div class="list-bottom-img"></div>
     </div>
 </div> 
+</page-meta>
+
 </template>
  
 <script>

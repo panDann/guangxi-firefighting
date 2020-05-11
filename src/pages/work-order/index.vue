@@ -1,8 +1,6 @@
 <template>
 <div class="gx-container gx-work-con">
     <Tab :list='tabList' @tab-change='tabChange'/>
-    <List title="111" :list="[]" />
-
         <div>
             <ul class="work-list-ul">
                 <Card type='workOrder'  :item='item' v-for="(item, index) in allList" :key="index" />
@@ -18,7 +16,6 @@
 import * as Api from '@/api/order.js'
 import Tab from '@/components/tab/index.vue'
 import Card from '@/components/card/card.vue'
-import List from '@/components/list/index.vue'
 
 export default {
   data () {
@@ -52,7 +49,6 @@ export default {
   components: {
     Tab,
     Card,
-    List
 
   },
 

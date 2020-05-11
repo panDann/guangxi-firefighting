@@ -18,11 +18,20 @@ export const mineModifyPagePath = "/pages/mine/modify/main"
 // work order
 export const workOrderPagePath = "/pages/work-order/main"
 export const handleOrderPagePath = "/pages/work-order/handle-order/main"
+export const handleOrderDetialPagePath = "/pages/work-order/handle-detail/main"
 
 
 export const loginPagePath = "/pages/login/main"
 
+export const firstTCPagePath = "/pages/first-tc/main"
+export const alertTCDetailPagePath = "/pages/alert-tc/detail/main"
+export const alertTCPagePath = "/pages/alert-tc/main"
+export const deviceTCPagePath = "/pages/device-tc/main"
 
+
+
+    
+    
     
     
     

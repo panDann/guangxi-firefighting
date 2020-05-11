@@ -50,7 +50,7 @@
             </div>
              <div class="bottom">
              <button class="submit" >提交</button>
-                </div>
+            </div>
         </div>
     </div>
 </div>
