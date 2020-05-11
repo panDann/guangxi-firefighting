@@ -147,7 +147,7 @@ export default {
     color: #0089FF;
 }
 
-/* .gx-my-return{
+.gx-my-return{
     margin: 0rem 0.6rem 0rem;
     position: fixed;
     bottom: 1rem;
@@ -166,5 +166,5 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-} */
+}
 </style>

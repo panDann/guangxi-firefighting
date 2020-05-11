@@ -2,6 +2,6 @@
   
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "工单",
+    "navigationBarTitleText": "工单列表",
     "navigationBarTextStyle": "black"
 }
