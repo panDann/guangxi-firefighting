@@ -20,6 +20,19 @@
             <span class="gx-search-close">检索</span>
     </div>
 
+    <!-- <pull-refresh :refreshing="isRefreshing" :on-refresh="onRefresh" pull-height="400px">
+      <div class="list">
+        <p v-for="n in 20">{{n}}</p>
+      </div>
+    </pull-refresh> -->
+
+    <!-- <TableView :visibleHeight="winHeight" pulldownDistance="100" refreshPulldownText="你再往下拉试试" refreshUndoText="你松开试试" refreshLoadingText="我在努力刷新中~" loadmoreLoadingText="正在加载数据" loadmoreAllloadedText="没有更多数据" isNeedLoadmore :_loadmore="loadmore" :_refresh="refresh"
+    :allloaded="allloaded" :isEmpty="!loading &&allList.length<=0">
+            <ul class="work-list-ul">
+                <Card type='inspection' :usertype='userType1' :item='item' v-for="(item, index) in allList" :key="index" />
+            </ul>   
+  </TableView> -->
+
     <div id="tabContent" class="gx-tab-content">
         <div>
             <ul class="work-list-ul">
@@ -37,15 +50,30 @@
 import * as Api from '@/api/order.js'
 import Tab from '@/components/tab/index.vue'
 import Card from '@/components/card/card.vue'
+// import TableView from '@/components/refreshTable/refreshTable.vue'
 
 export default {
   data () {
     return {
+      currentPage: 1,
+      totalPage: 0,
+      loading: false,
+      allloaded: false,
+      userid:'',
+      userInfo: {},
+      hasUserInfo: false,
+    winWidth: 0,
+    winHeight: 840,
       userType1:'',
       basePatrolTypeName:'',
-      basePatrolType:['网络巡检', '基础巡检', '自报警巡检'],
+      basePatrolType:['基础巡检', '网络巡检', '自报警巡检'],
       basePatrolCycleName:'',
-      basePatrolCycle:['全部', '每月','每周', '每日', '非周期'],
+      basePatrolCycle:['全部', '每日', '每周', '每月', '非周期'],
+      basePatrolStatus:['待完成','待完成','已完成'],
+      basePatrolCycleIcon:[ '/static/assets/images/patrol_list3.png',
+                            '/static/assets/images/patrol_list1.png',
+                            '/static/assets/images/patrol_list2.png',
+                            '/static/assets/images/patrol_list4.png'],
       activeKey:0,
       tabList: [
           {
@@ -74,8 +102,7 @@ export default {
   },
 
   components: {
-    Tab,
-    Card,
+    Tab,Card
   },
 
   methods: {
@@ -104,92 +131,44 @@ export default {
 
         let that = this
         let loginInfo = wx.getStorageSync("loginInfo")
-        console.log(index);
         this.activeKey=index
-        console.log('tttttttt...')
+        console.log('index: '+index)
 
         if(loginInfo.sysUserType==3){
             //请求巡检工单
             console.log('patrolOrder...')
-            let resPatrolTask = await Api.scomPatrolTask(loginInfo.token, loginInfo.id, index)
+            let status=(index==1||index==2)?index:null
+
+            if(index==0){
+              status = null
+            }else if(index==2){
+              status = 2 //已完成
+            }else if(index==1){
+              status = 0 //待完成
+            }
+            let resPatrolTask = await Api.scomPatrolTask(loginInfo.token, loginInfo.id, status)
             console.log(resPatrolTask)
             if(resPatrolTask.code!="0"){
                 wx.showToast({
                     title: resPatrolTask.msg,
                     icon: 'none'
                 })
+                return
             }
+            that.allList = []
+            for(let index in resPatrolTask.data){
+              let dict = resPatrolTask.data[index]
+              let tmpDict = {}
 
-            if(index==1){
-                that.allList = [
-                    {
-                      id:1,
-              imgUrl:'/static/assets/images/patrol_list1.png',
-              name:'每周二房消防基础巡检（14周）',
-              time:'2020-02-22 15:22:43',
-              status:'待处理',
-              summary:'李明 | 临时巡检'
-          }
-                ]
-            }else if(index==2){
-                that.allList = [
-                    {
-                      id:1,
-              imgUrl:'/static/assets/images/patrol_list2.png',
-              name:'每月消防网络巡检（4月）',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          },{
-            id:2,
-              imgUrl:'/static/assets/images/patrol_list3.png',
-              name:'每日消防网络巡检',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          },
-          {
-            id:3,
-              imgUrl:'/static/assets/images/patrol_list4.png',
-              name:'临时巡检',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          },
-                ]
-            }else{
-                that.allList = [
-                    {
-                      id:1,
-              imgUrl:'/static/assets/images/patrol_list1.png',
-              name:'每周二房消防基础巡检（14周）',
-              time:'2020-02-22 15:22:43',
-              status:'待处理',
-              summary:'李明 | 临时巡检'
-          },{
-            id:2,
-              imgUrl:'/static/assets/images/patrol_list2.png',
-              name:'每月消防网络巡检（4月）',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          },{
-            id:3,
-              imgUrl:'/static/assets/images/patrol_list3.png',
-              name:'每日消防网络巡检',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          },
-          {
-            id:4,
-              imgUrl:'/static/assets/images/patrol_list4.png',
-              name:'临时巡检',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          }
-                ]
+              let tmpPatrolTypeName = that.basePatrolType[dict.patrolTaskType]
+              tmpDict.id = dict.id
+              tmpDict.name = dict.topic
+              tmpDict.status = that.basePatrolStatus[dict.status]
+              tmpDict.summary = dict.name + ' | '+tmpPatrolTypeName
+              tmpDict.imgUrl = that.basePatrolCycleIcon[dict.cycle]
+              tmpDict.showcolor = dict.status
+              tmpDict.time = dict.updateTime
+              that.allList.push(tmpDict)
             }
         }
         console.log('aaaaaaaaa...')
@@ -207,6 +186,29 @@ export default {
       })
     },
   },
+
+   // 加载更多
+    loadmore({detail}) {
+      console.info('loadmore...');
+
+      var totalPage = this.token;
+      var currentPage = this.currentPage + 1;
+      if (currentPage > totalPage) {
+        this.allloaded = true
+      } else {
+        this.currentPage = currentPage
+      }
+
+    },
+
+  // 刷新
+    refresh({detail}) {
+      console.info('refresh...');
+
+      this.loading = false
+      this.allloaded = false
+      this.currentPage = 1
+    },
 
   async onLoad(){
     let that = this
@@ -228,47 +230,31 @@ export default {
 
       //请求巡检工单
       console.log('patrolOrder...')
-      let resPatrolTask = await Api.scomPatrolTask(loginInfo.token, loginInfo.id, 0)
+      let resPatrolTask = await Api.scomPatrolTask(loginInfo.token, loginInfo.id)
       console.log(resPatrolTask)
       if(resPatrolTask.code!="0"){
         wx.showToast({
           title: resPatrolTask.msg,
           icon: 'none'
         })
+        return
       }
 
-        that.allList = [
-                    {
-              id:1,
-              imgUrl:'/static/assets/images/patrol_list1.png',
-              name:'每周二房消防基础巡检（14周）',
-              time:'2020-02-22 15:22:43',
-              status:'待处理',
-              summary:'李明 | 临时巡检'
-          },{
-              id:2,
-              imgUrl:'/static/assets/images/patrol_list2.png',
-              name:'每月消防网络巡检（4月）',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          },{
-            id:3,
-              imgUrl:'/static/assets/images/patrol_list3.png',
-              name:'每日消防网络巡检',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          },
-          {
-            id:4,
-              imgUrl:'/static/assets/images/patrol_list4.png',
-              name:'临时巡检',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          }
-                ]
+      that.allList = []
+      for(let index in resPatrolTask.data){
+        let dict = resPatrolTask.data[index]
+        let tmpDict = {}
+
+        let tmpPatrolTypeName = that.basePatrolType[dict.patrolTaskType]
+        tmpDict.id = dict.id
+        tmpDict.name = dict.topic
+        tmpDict.status = that.basePatrolStatus[dict.status]
+        tmpDict.summary = dict.name + ' | '+tmpPatrolTypeName
+        tmpDict.imgUrl = that.basePatrolCycleIcon[dict.cycle]
+        tmpDict.showcolor = dict.status
+        tmpDict.time = dict.updateTime
+        that.allList.push(tmpDict)
+      }
 
     }else if(that.userType1==0){
       //管理员
@@ -289,33 +275,97 @@ export default {
           title: resPatrolPlan.msg,
           icon: 'none'
         })
+        return
       }
 
-      that.allList = [
-                    {
-              id:1,
-              imgUrl:'/static/assets/images/patrol_list1.png',
-              name:'每周二房消防基础巡检（14周）',
-              time:'2020-02-22 15:22:43',
-              status:'待处理',
-              summary:'李明 | 临时巡检'
-          },{
-              id:2,
-              imgUrl:'/static/assets/images/patrol_list2.png',
-              name:'每月消防网络巡检（4月）',
-              time:'2020-02-22 15:22:43',
-              status:'已完成',
-              summary:'李明 | 临时巡检'
-          }
-                ]
+      that.allList = []
+      for(let index in resPatrolPlan.data){
+        let dict = resPatrolPlan.data[index]
+        let tmpDict = {}
+
+        let tmpPatrolTypeName = that.basePatrolType[dict.patrolTaskType]
+        tmpDict.id = dict.id
+        tmpDict.name = dict.topic
+        tmpDict.status = that.basePatrolStatus[dict.status]
+        tmpDict.summary = dict.name + ' | '+tmpPatrolTypeName
+        tmpDict.imgUrl = that.basePatrolCycleIcon[dict.cycle]
+        tmpDict.showcolor = dict.status
+        tmpDict.time = dict.updateTime
+        that.allList.push(tmpDict)
+      }
+
+      // that.allList = [
+      //               {
+      //         id:1,
+      //         imgUrl:'/static/assets/images/patrol_list1.png',
+      //         name:'每周二房消防基础巡检（14周）',
+      //         time:'2020-02-22 15:22:43',
+      //         status:'待处理',
+      //         summary:'李明 | 临时巡检'
+      //     },{
+      //         id:2,
+      //         imgUrl:'/static/assets/images/patrol_list2.png',
+      //         name:'每月消防网络巡检（4月）',
+      //         time:'2020-02-22 15:22:43',
+      //         status:'已完成',
+      //         summary:'李明 | 临时巡检'
+      //     }
+      //           ]
     }else{
 
     }
 
   },
 
+  getContentHeight(){
+    var that = this;
+    console.info('getContentHeight');
+    //获取系统信息
+    wx.getSystemInfo({
+      success: function (res) {
+        console.info(res);
+        // 获取可使用窗口宽度
+        let clientHeight = res.windowHeight;
+        console.log('windowHeight: ' + clientHeight);
+
+        // 获取可使用窗口高度
+        let clientWidth = res.windowWidth;
+        // 算出比例
+        let ratio = 750 / clientWidth;
+        // 算出高度(单位rpx)
+        let height = clientHeight * ratio;
+        // 设置高度
+        console.log('height: ' + height);
+        that.setData({
+          winHeight: height - 450
+        });
+      }
+    })
+  },
+
   created () {
     // let app = getApp()
+    var that = this;
+    console.info('getContentHeight');
+    //获取系统信息
+    wx.getSystemInfo({
+      success: function (res) {
+        console.info(res);
+        // 获取可使用窗口宽度
+        let clientHeight = res.windowHeight;
+        console.log('windowHeight: ' + clientHeight);
+
+        // 获取可使用窗口高度
+        let clientWidth = res.windowWidth;
+        // 算出比例
+        let ratio = 750 / clientWidth;
+        // 算出高度(单位rpx)
+        let height = clientHeight * ratio;
+        // 设置高度
+        console.log('height: ' + height);
+        that.winHeight = height - 450
+      }
+    })
   }
 }
 </script>
