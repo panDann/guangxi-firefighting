@@ -69,7 +69,7 @@ export default {
       basePatrolType:['基础巡检', '网络巡检', '自报警巡检'],
       basePatrolCycleName:'',
       basePatrolCycle:['全部', '每日', '每周', '每月', '非周期'],
-      basePatrolStatus:['待完成','待完成','已完成'],
+      basePatrolStatus:['未完成','未完成','已完成'],
       basePatrolCycleIcon:[ '/static/assets/images/patrol_list3.png',
                             '/static/assets/images/patrol_list1.png',
                             '/static/assets/images/patrol_list2.png',
@@ -82,7 +82,7 @@ export default {
               key:0
           },
           {
-              label:'待处理',
+              label:'未完成',
               count:'10',
               key:1
           },
