@@ -84,6 +84,14 @@ export default {
     clickHandle (ev) {
       console.log('clickHandle:', ev)
       // throw {message: 'custom test'}
+    },
+
+    leapToDetail(id){
+          console.log('device id: '+id)
+          let url = '/pages/inspection/device/main'+'?deviceId='+id
+          console.log('leapToDetail...')
+          console.log(url)
+          mpvue.navigateTo({url})
     }
   },
 
@@ -131,11 +139,11 @@ export default {
     console.log(resDeviceList.data)
     that.orderDeviceList = resDeviceList.data
 
-    that.orderDeviceList = [
-        {'equipmentName':'设备名称1','name':'西塔13楼1301房','status':1},
-        {'equipmentName':'设备名称2','name':'西塔13楼1302房','status':2},
-        {'equipmentName':'设备名称3','name':'西塔13楼1303房','status':2}
-    ]
+    // that.orderDeviceList = [
+    //     {'equipmentName':'设备名称1','name':'西塔13楼1301房','status':1},
+    //     {'equipmentName':'设备名称2','name':'西塔13楼1302房','status':2},
+    //     {'equipmentName':'设备名称3','name':'西塔13楼1303房','status':2}
+    // ]
   },
 
   created () {

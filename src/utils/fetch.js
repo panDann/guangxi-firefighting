@@ -1,4 +1,6 @@
 
+// const host = 'http://14.116.219.164:8890/',
+//       $hideLoading = mpvue.hideLoading
 const host = 'http://127.0.0.1:8080/',
       $hideLoading = mpvue.hideLoading
 

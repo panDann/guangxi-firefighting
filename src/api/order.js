@@ -40,7 +40,7 @@ export const scomPatrolPlan = (token, tenantsId, patrolTaskType, cycle, topic, p
         param.PageSize = pagesize
     }
     console.log(param)
-    return fetch(`system/scom-patrol-plan/getList`,param, 'POST' ,{"Authorization":token, "Content-Type":"application/json"})
+    return fetch(`system/scom-patrol-plan/getList`,param, 'POST' ,{"Authorization":token, "Content-Type":"application/x-www-form-urlencoded"})
 }
 
 //巡检计划详情

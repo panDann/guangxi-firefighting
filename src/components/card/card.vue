@@ -6,10 +6,15 @@
       </div>
       <div class="work-list-right">
           <p class="work-list-title">{{item.name}}</p>
-          <p class="work-list-time">{{item.summary?item.summary:item.time}}</p>
-          <p class="work-list-info">
+          <p class="work-list-time" v-if="usertype==3">{{item.summary?item.summary:item.time}}</p>
+          <p class="work-list-info" v-if="usertype==3">
               <span><i class="icon-address" v-show="item.address"></i>{{item.address? item.address:item.time}}</span>
-              <a href="javascript:;" class="work-list-state work-list-processed" @click="leapToDetail(item.id)" >{{item.status}}<i class="icon-arrow"></i></a>
+              <a v-if="item.showcolor==2" href="javascript:;" class="work-list-state work-list-complete" @click="leapToDetail(item.id)" >{{item.status}}<i class="icon-arrow"></i></a>
+              <a v-else href="javascript:;" class="work-list-state work-list-processed" @click="leapToDetail(item.id)" >{{item.status}}<i class="icon-arrow"></i></a>
+          </p>
+          <p class="work-list-info" v-if="usertype==0">
+              <span><i class="icon-address" v-show="item.address"></i>{{item.address? item.address:item.time}}</span>
+              <a href="javascript:;" class="work-list-state" @click="leapToDetail(item.id)" >查看详情<i class="icon-arrow"></i></a>
           </p>
       </div>
   </li>
@@ -40,20 +45,23 @@ export default {
       leapToDetail(id) {
           console.log('leapToDetail111....')
           console.log(id)
-          if(this.type !=='inspection')return
 
-
-        console.log('userType==> '+this.usertype)
-        if(this.usertype=="3"){
+          if(this.type=='inspection'){
+            console.log('userType==> '+this.usertype)
+            if(this.usertype=="3"){
+                wx.navigateTo({
+                    url: '/pages/inspection/detail/main'+'?planId='+id
+                })
+            }else if(this.usertype=="0"){
+                wx.navigateTo({
+                    url: '/pages/inspection/plan/main'+'?planId='+id
+                })
+            }
+          }else if(this.type=='workOrder'){
             wx.navigateTo({
-                url: '/pages/inspection/detail/main'+'?planId='+id
-            })
-        }else if(this.usertype=="0"){
-            wx.navigateTo({
-                url: '/pages/inspection/plan/main'+'?planId='+id
-            })
-
-        }
+                url: '/pages/work-order/handle-order/main'+'?planId='+id
+            })   
+          }
       }
   },
 }

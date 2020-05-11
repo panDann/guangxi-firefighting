@@ -2,6 +2,7 @@ import {fetch} from '@/utils/fetch.js'
 
 
 export const getCode = (phone)=>{
+    console.log('-------ccc--------'+phone)
     return fetch(`sendCode/${phone}`,{},'GET')
 }
 
