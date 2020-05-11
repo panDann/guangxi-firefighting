@@ -3,8 +3,7 @@
     <Tab :list='tabList' @tab-change='tabChange'/>
         <div>
             <ul class="work-list-ul">
-                <Card type='workOrder'   :item='item' v-for="(item, index) in allList" :key="index" />
-                <!-- <Card type='inspection'  :item='item' v-for="(item, index) in allList" :key="index" /> -->
+                <Card type='workOrder' :item='item' v-for="(item, index) in allList" :key="index" />
             </ul>
             <div class="list-bottom-img"></div>
         </div>
@@ -27,22 +26,22 @@ export default {
         key22:'/static/assets/images/work_list3.png',
         key23:'/static/assets/images/work_list1.png', 
       },
-      baseStatus:['待完成','待完成','已完成'],
+      baseStatus:['待处理','待处理','已完成'],
       activeKey:0,
       tabList: [
           {
               label:'全部',
-              count:'10',
+              count:0,
               key:0
           },
           {
               label:'待处理',
-              count:'10',
+              count:0,
               key:1
           },
           {
               label:'已完成',
-              count:'10',
+              count:0,
               key:2
           },
       ],
@@ -76,8 +75,6 @@ export default {
       let status = index
       if(index==0){
         status = null
-      }else if(index==1){
-        status = 0
       }
       console.log('vvvvvvvvvvv...')
       let loginInfo = wx.getStorageSync("loginInfo")
@@ -91,10 +88,26 @@ export default {
         return
       }
 
+      let countArray=[]
+      countArray[0] = resOrder.data.totalCount?resOrder.data.totalCount:0
+      countArray[1] = resOrder.data.pendingCount?resOrder.data.pendingCount:0
+      countArray[2] = resOrder.data.completedCount?resOrder.data.completedCount:0
+      
+
+      console.log('countArray-------')
+      console.log(countArray)
+
+      for(let idx in that.tabList){
+        let dict = that.tabList[idx]
+        dict.count = countArray[idx]
+      }
+      console.log('tabList-------')
+      console.log(that.tabList)
+
       that.allList = []
-      for (let devkey in resOrder.data) {
+      for (let devkey in resOrder.data.list) {
         let orderTmp = {}
-        let order = resOrder.data[devkey]
+        let order = resOrder.data.list[devkey]
         orderTmp.name = order.topic
         orderTmp.status = that.baseStatus[order.status]
         let alarmTypeId = order.alarmTypeId
@@ -102,6 +115,7 @@ export default {
         orderTmp.address = order.address
         orderTmp.time = order.createTime
         orderTmp.showcolor = order.status
+        orderTmp.id = order.id
         that.allList.push(orderTmp);
       }
 
@@ -133,10 +147,27 @@ export default {
 
       console.log('ccccc...')
 
+      let countArray=[]
+      countArray[0] = resOrder.data.totalCount?resOrder.data.totalCount:0
+      countArray[1] = resOrder.data.pendingCount?resOrder.data.pendingCount:0
+      countArray[2] = resOrder.data.completedCount?resOrder.data.completedCount:0
+
+           console.log('countArray-------')
+      console.log(countArray)
+
+      for(let idx in that.tabList){
+        console.log('index:-------'+idx)
+        let dict = that.tabList[idx]
+        dict.count = countArray[idx]
+      }
+
+           console.log('tabList-------')
+      console.log(that.tabList)
+
       that.allList = []
-      for (let devkey in resOrder.data) {
+      for (let devkey in resOrder.data.list) {
         let orderTmp = {}
-        let order = resOrder.data[devkey]
+        let order = resOrder.data.list[devkey]
         orderTmp.name = order.topic
         orderTmp.status = that.baseStatus[order.status]
         let alarmTypeId = order.alarmTypeId
@@ -144,6 +175,7 @@ export default {
         orderTmp.address = order.address
         orderTmp.time = order.createTime
         orderTmp.showcolor = order.status
+        orderTmp.id = order.id
         that.allList.push(orderTmp);
       }
 },
