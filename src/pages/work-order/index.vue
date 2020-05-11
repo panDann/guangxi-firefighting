@@ -5,7 +5,8 @@
 
         <div>
             <ul class="work-list-ul">
-                <Card type='workOrder'  :item='item' v-for="(item, index) in allList" :key="index" />
+                <Card type='workOrder'   :item='item' v-for="(item, index) in allList" :key="index" />
+                <!-- <Card type='inspection'  :item='item' v-for="(item, index) in allList" :key="index" /> -->
             </ul>
             <div class="list-bottom-img"></div>
         </div>
