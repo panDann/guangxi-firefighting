@@ -1,38 +1,43 @@
 <template>
-<div class="gx-form-card">
-        <div class="gx-form-card-header">
-            <span>{{title}}</span>
+<div class="">
+    <div class="gx-form-card">
+        <div class="gx-form-card-header flex-row align-center justify-between" @click='isFold = !isFold'  >
+            <span class="primary-color">{{title}}</span> <span class="iconfont icon-top transition-all primary-color" :class="!isFold? 'rotate180':''"></span>
         </div>
-        <div class="gx-form-card-body">
-            <div>
-                <div class="gx-form-card-list clearfix" v-for="(item,i) in list" :key="i">
-                    <p class="gx-form-list-left fl">{{item.label}}</p>
-                    <span class="gx-form-list-right fr" v-if="item.onClick" @click="item.onClick(item)" >{{item.value}}</span>
-                    <span class="gx-form-list-right fr" >{{item.value}}</span>
-                </div>
-            </div>
+        <div class="gx-form-card-body transition-all " :class="!isFold&&'height0'"  v-show="!isFold">
+               <slot />
         </div>
     </div>
+</div>
 </template>
-
 <script>
-
 export default {
-  props: {
-     list:{
-          type:Array,
-          required:true,
-          default:()=>[]
-      },
-      title:{
+  props:{
+     title:{
           type:String,
-          required:true,
+          required:false,
           default:'标题'
       },
+     initFold:{
+          type:Boolean,
+          required:false,
+          default:false
+      },
   },
-   mounted() {
-    console.log(this);
-    
+  data () {
+    return {
+       isFold:false
+    }
   },
+  mounted() {
+    this.isFold = this.initFold
+  },
+  methods: {
+     
+  }
 }
 </script>
+
+<style scoped>
+
+</style>

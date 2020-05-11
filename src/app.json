@@ -1,6 +1,7 @@
 {
   "pages": [
-    "pages/handle-order/main",
+    "pages/work-order/handle-detail/main",
+    "pages/work-order/handle-order/main",
     "pages/first/main",
     "pages/login/main",
     "pages/device/main",

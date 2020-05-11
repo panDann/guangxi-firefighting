@@ -4,7 +4,7 @@
  <div class="flex-row flex-wrap justify-start">
         <div class="img-pick-item"  v-for="(item,i) in urls" :key="i">
           <img :src="item"  alt="" class="img-pick-item-img"   />
-        <p class="delete-icon" @click="deleteItem(i)">X</p>
+        <p class="delete-icon" @click="deleteItem(i)" v-show="isShowAdd">X</p>
         </div>
         <div class="img-pick-item add" v-show="isShowAdd" @click="togglePick">
             +
@@ -60,7 +60,7 @@ export default {
 
 <style scoped>
 .img-pick {
- margin: .2rem .3rem
+ margin: .2rem .4rem
 }
 .img-pick-title {
     font-size:14px;

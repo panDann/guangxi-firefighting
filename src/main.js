@@ -7,6 +7,7 @@ import '../static/assets/css/common.css'
 import '../static/assets/css/style.css'
 import '../static/assets/css/default.css'
 
+import './styles/index.css'
 
 
 Vue.config.productionTip = false
